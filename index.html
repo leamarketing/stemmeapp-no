@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StemmeApp.no — rådgivende innbyggerdeltakelse med dokumentert kunnskapsgrunnlag. Pilot: Nordreisa. Ikke et offisielt valgsystem.">
+  <meta name="theme-color" content="#0b1f1a">
+  <meta property="og:title" content="StemmeApp.no">
+  <meta property="og:description" content="Forstå saken. Stem rådgivende. Se resultatet — synlig og etterprøvbart.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stemmeapp.no/">
+  <meta name="robots" content="index,follow">
+  <title>StemmeApp.no — rådgivende innbyggerdeltakelse</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f1a'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%237dffb3' stroke-width='2'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0b1f1a;
+      --bg2: #122a23;
+      --card: #16332a;
+      --line: rgba(125, 255, 179, 0.18);
+      --text: #e8f6ef;
+      --muted: #9bb8ab;
+      --accent: #7dffb3;
+      --accent2: #5ec8ff;
+      --warn: #ffd28a;
+      --radius: 18px;
+      --max: 1080px;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: radial-gradient(1200px 600px at 10% -10%, #1a4a3a 0%, transparent 55%),
+                  radial-gradient(900px 500px at 100% 0%, #0e3a55 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: #b6ffd6; }
+    .wrap { width: min(100% - 2rem, var(--max)); margin-inline: auto; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11, 31, 26, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 0.85rem 0; flex-wrap: wrap;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.7rem;
+      color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .logo {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(145deg, #1f5b48, #0b1f1a);
+      border: 1px solid var(--line);
+      display: grid; place-items: center;
+    }
+    .logo span {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--accent); display: block;
+    }
+    .nav-links { display: flex; gap: 0.85rem; flex-wrap: wrap; font-size: 0.92rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.7rem; border-radius: 999px;
+      border: 1px solid var(--line); background: rgba(125,255,179,0.08);
+      color: var(--accent); font-size: 0.8rem; font-weight: 600;
+    }
+    .hero { padding: 3.5rem 0 2.5rem; }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.12; margin: 1rem 0 1rem; max-width: 16ch;
+      letter-spacing: -0.03em;
+    }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 42rem; margin: 0 0 1.5rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.85rem 1.2rem; border-radius: 999px; font-weight: 700;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: #062018; }
+    .btn-primary:hover { filter: brightness(1.05); color: #062018; }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border-color: var(--line);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .notice {
+      margin-top: 1.75rem; padding: 1rem 1.1rem; border-radius: var(--radius);
+      border: 1px solid rgba(255, 210, 138, 0.35);
+      background: rgba(255, 210, 138, 0.08);
+      color: #ffe8c2; font-size: 0.95rem;
+    }
+    section { padding: 2.75rem 0; }
+    section h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin: 0 0 0.75rem; letter-spacing: -0.02em;
+    }
+    .section-lead { color: var(--muted); max-width: 40rem; margin: 0 0 1.5rem; }
+    .grid {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent), var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .card .num {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 0.55rem;
+    }
+    .tree {
+      display: grid; gap: 0.55rem; margin: 0; padding: 0; list-style: none;
+    }
+    .tree li {
+      display: flex; gap: 0.85rem; align-items: flex-start;
+      padding: 0.85rem 1rem; border-radius: 14px;
+      border: 1px solid var(--line); background: var(--bg2);
+    }
+    .tree code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.85rem; color: var(--accent);
+      white-space: nowrap;
+    }
+    .tree span { color: var(--muted); font-size: 0.92rem; }
+    .steps { counter-reset: step; display: grid; gap: 0.75rem; }
+    .steps article {
+      counter-increment: step;
+      display: grid; grid-template-columns: auto 1fr; gap: 0.9rem;
+      padding: 1rem; border-radius: var(--radius);
+      border: 1px solid var(--line); background: var(--bg2);
+    }
+    .steps article::before {
+      content: counter(step);
+      width: 2rem; height: 2rem; border-radius: 50%;
+      display: grid; place-items: center;
+      background: rgba(125,255,179,0.12); color: var(--accent);
+      font-weight: 800; font-size: 0.9rem;
+    }
+    .steps h3 { margin: 0 0 0.25rem; font-size: 1rem; }
+    .steps p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .pill {
+      padding: 0.4rem 0.75rem; border-radius: 999px;
+      border: 1px solid var(--line); color: var(--muted); font-size: 0.85rem;
+      background: rgba(0,0,0,0.15);
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem;
+    }
+    footer .cols {
+      display: grid; gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    footer strong { color: var(--text); }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="StemmeApp forsiden">
+        <span class="logo" aria-hidden="true"><span></span></span>
+        StemmeApp.no
+      </a>
+      <nav class="nav-links" aria-label="Hovedmeny">
+        <a href="#hvordan">Hvordan</a>
+        <a href="#sted">Sted</a>
+        <a href="#deepdive">Deep Dive</a>
+        <a href="#tillit">Tillit</a>
+        <a href="#pilot">Pilot</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <span class="badge">Rådgivende · Synlig · Etterprøvbart</span>
+        <h1>Forstå saken. Stem. Se resultatet.</h1>
+        <p class="lead">
+          StemmeApp er et rolig beslutnings- og innspillsverktøy for lokalsamfunn —
+          synkronisert mellom app og nettside. Først Nordreisa, deretter flere kommuner,
+          fylker og nasjon.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#pilot">Nordreisa-pilot</a>
+          <a class="btn btn-ghost" href="#deepdive">Deep Dive-portvakt</a>
+        </div>
+        <p class="notice" role="note">
+          <strong>Viktig:</strong> StemmeApp er <em>ikke</em> et offisielt offentlig valgsystem
+          og erstatter ikke kommune-, fylkes- eller stortingsvalg. Resultater er rådgivende
+          innspill med dokumentert metode.
+        </p>
+      </div>
+    </section>
+
+    <section id="hvordan">
+      <div class="wrap">
+        <h2>Tre søyler — én datakjerne</h2>
+        <p class="section-lead">
+          All stemming går til samme backend. Nettsiden viser resultater.
+          Appen er stemmekanalen. Deep Dive godkjenner spørsmål og svaralternativer.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <div class="num">A · Nettside</div>
+            <h3>Offentlig transparens</h3>
+            <p>Sak, kunnskapskort, metode, deltakelse og fryste resultater — alltid synlig.</p>
+          </article>
+          <article class="card">
+            <div class="num">B · App</div>
+            <h3>Stemmekanalen</h3>
+            <p>Varsler, sted, interessegrupper, én stemme per sak, bekreftelse og sync til web.</p>
+          </article>
+          <article class="card">
+            <div class="num">C · Deep Dive</div>
+            <h3>Portvakt for formulering</h3>
+            <p>Kilder, kontradiksjon, nøytralt språk og menneskelig dobbeltgodkjenning før publisering.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sted">
+      <div class="wrap">
+        <h2>Skalerbar geografisk struktur</h2>
+        <p class="section-lead">
+          Samme URL-mønster fra kommune til nasjon — lett å organisere i GitHub og i produktet.
+        </p>
+        <ul class="tree" aria-label="URL-hierarki">
+          <li><code>/no</code><span>Nasjon</span></li>
+          <li><code>/no/troms</code><span>Fylke</span></li>
+          <li><code>/no/troms/nordreisa</code><span>Kommune (pilot)</span></li>
+          <li><code>/no/troms/nordreisa/saker/{id}</code><span>Aktiv sak</span></li>
+          <li><code>/no/troms/nordreisa/saker/{id}/resultat</code><span>Offentlig resultat</span></li>
+        </ul>
+        <div class="pill-row" aria-label="Interessegrupper">
+          <span class="pill">Skole</span>
+          <span class="pill">Helse</span>
+          <span class="pill">Næring</span>
+          <span class="pill">Natur / areal</span>
+          <span class="pill">Samferdsel</span>
+          <span class="pill">Kultur</span>
+          <span class="pill">Ungdom</span>
+          <span class="pill">Eldre</span>
+          <span class="pill">Beredskap</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="deepdive">
+      <div class="wrap">
+        <h2>Deep Dive før stemming</h2>
+        <p class="section-lead">
+          Ingen sak publiseres uten dokumentert kunnskap, nøytralitetstest og sporbar godkjenning.
+          AI anbefaler aldri hvilket alternativ du bør velge.
+        </p>
+        <div class="steps">
+          <article>
+            <div>
+              <h3>Jurisdiksjon</h3>
+              <p>Hvem kan faktisk beslutte saken?</p>
+            </div>
+          </article>
+          <article>
+            <div>
+              <h3>Kilder og kontradiksjon</h3>
+              <p>Primærkilder først. Aktivt søk etter motargumenter — uten falsk balanse.</p>
+            </div>
+          </article>
+          <article>
+            <div>
+              <h3>Språk og alternativer</h3>
+              <p>Ingen ledende ord, falske premisser eller skjulte valg.</p>
+            </div>
+          </article>
+          <article>
+            <div>
+              <h3>Dobbeltgodkjenning</h3>
+              <p>To mennesker signerer. Versjonen fryses og hashes før åpning.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tillit">
+      <div class="wrap">
+        <h2>Tillit uten «tro oss»</h2>
+        <p class="section-lead">
+          Målet er ikke å love det umulige. Målet er at andre kan kontrollere systemet.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h3>Én person, én stemme</h3>
+            <p>Database stopper dobbeltstemming. Identitet holdes adskilt fra anonym ballot.</p>
+          </article>
+          <article class="card">
+            <h3>Fryste spørsmål</h3>
+            <p>Endring midt i = ny versjon og ny Deep Dive. Ingen stille omskriving.</p>
+          </article>
+          <article class="card">
+            <h3>Offentlig resultat-snapshot</h3>
+            <p>Hash og tidsstempel etter lukking. Historikk kan ikke overskrives i det stille.</p>
+          </article>
+          <article class="card">
+            <h3>Ærlig representativitet</h3>
+            <p>Vi skiller «de som deltok» fra «hele befolkningen». Interessegrupper får egen deltelling.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pilot">
+      <div class="wrap">
+        <h2>Pilot: Nordreisa</h2>
+        <p class="section-lead">
+          Første levende område. Små steg, tydelig metode, synlige resultater på nettsiden.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <div class="num">Fase A</div>
+            <h3>Research sandbox</h3>
+            <p>Deep Dive-struktur, roller og transparenslogg med testdata.</p>
+          </article>
+          <article class="card">
+            <div class="num">Fase B</div>
+            <h3>Lukket pilot</h3>
+            <p>Avgrenset rådgivende test etter DPIA og sikkerhetsgjennomgang.</p>
+          </article>
+          <article class="card">
+            <div class="num">Fase C+</div>
+            <h3>Åpen lokal rådgivning</h3>
+            <p>Sterkere eID/tilhørighet, deretter flere kommuner og fylker.</p>
+          </article>
+        </div>
+        <div class="cta-row" style="margin-top:1.5rem">
+          <a class="btn btn-primary" href="mailto:geiramdal@gmail.com?subject=StemmeApp%20Nordreisa">Kontakt pilot</a>
+          <a class="btn btn-ghost" href="#top">Til toppen</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap cols">
+      <div>
+        <strong>StemmeApp.no</strong>
+        <p>Teknologi skal hjelpe mennesker å ta beslutninger — ikke kontrollere dem.</p>
+      </div>
+      <div>
+        <strong>Denne siden</strong>
+        <p>Statisk HTML uten eksterne avhengigheter. Lett å hoste på GitHub Pages / CDN.</p>
+      </div>
+      <div>
+        <strong>Personvern</strong>
+        <p>Ingen sporingspiksler her. Politiske preferanser behandles som sensitivt område i produktet.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
