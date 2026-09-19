@@ -1,37 +1,43 @@
 # StemmeApp.no — statisk forside
 
-Lett `index.html` uten eksterne CSS/JS-bibliotek. Egnet for høy trafikk via GitHub Pages eller CDN.
+Lett HTML uten eksterne CSS/JS-bibliotek. Egnet for høy trafikk via GitHub Pages eller CDN.
+
+## Sider
+
+| Fil | Innhold |
+|-----|---------|
+| `index.html` | Landing: produkt, geografi, Deep Dive, tillit, Nordreisa-pilot |
+| `trust.html` | Trust Center — hva vi lover / ikke lover |
+| `deep-dive-eksempel.html` | Illustrerende Deep Dive-case (Sandnes Fjord Camping / Nordreisa) |
 
 ## Innhold
 
 - Produktforklaring (nettside + app + Deep Dive)
 - Geografisk URL-struktur
-- Tillit / sikkerhetsprinsipper
+- Trust Center / sikkerhetsprinsipper (ID≠ballot, ingen live tally som standard)
+- Deep Dive-eksempel med porter 0–7, kunnskapskort og innholdshash
 - Nordreisa-pilot
 
 ## GitHub Pages
 
-1. Lag nytt repo (f.eks. `stemmeapp-no` eller bruk `username.github.io`).
-2. Last opp innholdet i denne mappen til `main`.
-3. Settings → Pages → Source: Deploy from branch → `main` / `/ (root)`.
+1. Repo: [leamarketing/stemmeapp-no](https://github.com/leamarketing/stemmeapp-no)
+2. Settings → Pages → Source: Deploy from branch → `main` / `/ (root)`.
+3. Forventet URL: `https://leamarketing.github.io/stemmeapp-no/`
 4. Koble eventuelt `stemmeapp.no` som custom domain (CNAME).
 
 ## Organisering senere
 
-Når flere sider kommer, behold samme stil og del i mapper:
-
 ```
 /
-  index.html          ← denne filen
+  index.html
+  trust.html
+  deep-dive-eksempel.html
   no/
-    index.html
     troms/
       nordreisa/
-        index.html
+        ...
 ```
-
-Eller bygg videre med Next.js/Supabase fra ferdigmalen — denne HTML-en forblir en rask landing.
 
 ## Merknad
 
-Ikke et offisielt valgsystem. Se Deep Dive-kildefil og spesifikasjon i prosjektmappen `01-StemmeApp`.
+Ikke et offisielt valgsystem. Deep Dive-eksempelet er **illustrasjon** — ikke åpen avstemning.

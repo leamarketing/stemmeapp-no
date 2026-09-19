@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Eksempel på Deep Dive-prosess: Sandnes Fjord Camping / kuppelovernatting i Nordreisa. Illustrasjon — ikke åpen avstemning. StemmeApp er ikke et offisielt valgsystem.">
+  <meta name="theme-color" content="#0b1f1a">
+  <meta name="robots" content="index,follow">
+  <title>Deep Dive-eksempel — Sandnes Fjord Camping · Nordreisa | StemmeApp</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f1a'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%237dffb3' stroke-width='2'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0b1f1a;
+      --bg2: #122a23;
+      --card: #16332a;
+      --line: rgba(125, 255, 179, 0.18);
+      --text: #e8f6ef;
+      --muted: #9bb8ab;
+      --accent: #7dffb3;
+      --accent2: #5ec8ff;
+      --warn: #ffd28a;
+      --radius: 18px;
+      --max: 1080px;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: radial-gradient(1200px 600px at 10% -10%, #1a4a3a 0%, transparent 55%),
+                  radial-gradient(900px 500px at 100% 0%, #0e3a55 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: #b6ffd6; }
+    .wrap { width: min(100% - 2rem, var(--max)); margin-inline: auto; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11, 31, 26, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 0.85rem 0; flex-wrap: wrap;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.7rem;
+      color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .logo {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(145deg, #1f5b48, #0b1f1a);
+      border: 1px solid var(--line);
+      display: grid; place-items: center;
+    }
+    .logo span {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--accent); display: block;
+    }
+    .nav-links { display: flex; gap: 0.85rem; flex-wrap: wrap; font-size: 0.92rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.7rem; border-radius: 999px;
+      border: 1px solid var(--line); background: rgba(125,255,179,0.08);
+      color: var(--accent); font-size: 0.8rem; font-weight: 600;
+    }
+    .badge-warn {
+      border-color: rgba(255, 210, 138, 0.45);
+      background: rgba(255, 210, 138, 0.1);
+      color: var(--warn);
+    }
+    .hero { padding: 3rem 0 2rem; }
+    .hero h1 {
+      font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+      line-height: 1.15; margin: 1rem 0 0.75rem;
+      letter-spacing: -0.03em; max-width: 22ch;
+    }
+    .hero-sub { font-size: 1.05rem; color: var(--muted); max-width: 44rem; margin: 0 0 1.25rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 42rem; margin: 0 0 1.5rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.85rem 1.2rem; border-radius: 999px; font-weight: 700;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: #062018; }
+    .btn-primary:hover { filter: brightness(1.05); color: #062018; }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border-color: var(--line);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .notice {
+      margin-top: 1.5rem; padding: 1rem 1.1rem; border-radius: var(--radius);
+      border: 1px solid rgba(255, 210, 138, 0.35);
+      background: rgba(255, 210, 138, 0.08);
+      color: #ffe8c2; font-size: 0.95rem;
+    }
+    .notice-info {
+      border-color: rgba(94, 200, 255, 0.35);
+      background: rgba(94, 200, 255, 0.08);
+      color: #cceeff;
+    }
+    section { padding: 2.5rem 0; }
+    section h2 {
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      margin: 0 0 0.75rem; letter-spacing: -0.02em;
+    }
+    .section-lead { color: var(--muted); max-width: 42rem; margin: 0 0 1.5rem; }
+    .grid {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent), var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+    .card p, .card li { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .card .num {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 0.55rem;
+    }
+    .card ul { margin: 0.4rem 0 0; padding-left: 1.1rem; }
+    .card li { margin-bottom: 0.35rem; }
+    .field-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 0.35rem;
+    }
+    .ports { display: grid; gap: 0.55rem; }
+    .port {
+      display: grid; grid-template-columns: 3rem 1fr auto; gap: 0.85rem;
+      align-items: start; padding: 0.9rem 1rem;
+      border-radius: 14px; border: 1px solid var(--line); background: var(--bg2);
+    }
+    .port-n {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--accent); font-weight: 700; font-size: 0.9rem;
+    }
+    .port h3 { margin: 0 0 0.2rem; font-size: 0.98rem; }
+    .port p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .status {
+      font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.55rem;
+      border-radius: 999px; border: 1px solid var(--line); white-space: nowrap;
+      color: var(--accent); background: rgba(125,255,179,0.08);
+    }
+    .status.partial { color: var(--warn); background: rgba(255,210,138,0.1); border-color: rgba(255,210,138,0.35); }
+    .status.demo { color: var(--accent2); background: rgba(94,200,255,0.1); border-color: rgba(94,200,255,0.35); }
+    .options { display: grid; gap: 0.65rem; }
+    .option {
+      padding: 1rem 1.1rem; border-radius: 14px;
+      border: 1px solid var(--line); background: var(--bg2);
+    }
+    .option strong { display: block; margin-bottom: 0.25rem; color: var(--text); }
+    .option span { color: var(--muted); font-size: 0.92rem; }
+    .hash-box {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.78rem; word-break: break-all;
+      padding: 1rem; border-radius: 14px;
+      border: 1px dashed var(--line); background: rgba(0,0,0,0.25);
+      color: var(--accent);
+    }
+    .src-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .src-table th, .src-table td {
+      text-align: left; padding: 0.65rem 0.5rem;
+      border-bottom: 1px solid var(--line); vertical-align: top;
+    }
+    .src-table th { color: var(--accent2); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .src-table td { color: var(--muted); }
+    .src-table td:first-child { color: var(--text); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .pill {
+      padding: 0.4rem 0.75rem; border-radius: 999px;
+      border: 1px solid var(--line); color: var(--muted); font-size: 0.85rem;
+      background: rgba(0,0,0,0.15);
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem;
+    }
+    footer .cols {
+      display: grid; gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    footer strong { color: var(--text); }
+    .rules {
+      border: 1px solid rgba(125,255,179,0.28);
+      background: rgba(125,255,179,0.06);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.25rem;
+    }
+    .rules h3 { margin: 0 0 0.5rem; }
+    .rules ul { margin: 0; padding-left: 1.15rem; color: var(--muted); }
+    .rules li { margin-bottom: 0.35rem; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="StemmeApp forsiden">
+        <span class="logo" aria-hidden="true"><span></span></span>
+        StemmeApp.no
+      </a>
+      <nav class="nav-links" aria-label="Hovedmeny">
+        <a href="index.html">Forside</a>
+        <a href="trust.html">Tillit</a>
+        <a href="deep-dive-eksempel.html" aria-current="page">Deep Dive-eksempel</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="meta-row">
+          <span class="badge badge-warn">Eksempel / illustrasjon for Deep Dive-prosess</span>
+          <span class="badge">Nordreisa kommune · Troms</span>
+          <span class="badge">Status: Eksempel — ikke åpen avstemning</span>
+        </div>
+        <h1>Sandnes Fjord Camping — kuppelovernatting og arealinnspill</h1>
+        <p class="hero-sub">
+          Dette er et <strong>illustrerende eksempel</strong> som viser hvordan StemmeApp
+          bygger kunnskapskort, portvakter og nøytrale alternativer før eventuell rådgivende
+          stemming. Det er <em>ikke</em> en levende sak og <em>ikke</em> et offisielt valg.
+        </p>
+        <p class="notice" role="note">
+          <strong>Viktig:</strong> StemmeApp er ikke et offisielt offentlig valgsystem.
+          Konkurrenter kan samle meninger raskt; vi skiller oss på
+          <em>etterprøvbarhet</em> — dokumenterte kilder, kontradiksjon, fryst formulering og hash.
+        </p>
+      </div>
+    </section>
+
+    <section id="jurisdiksjon">
+      <div class="wrap">
+        <h2>Jurisdiksjon — hvem kan egentlig beslutte?</h2>
+        <p class="section-lead">
+          Ærlig om blandet myndighet: campingdrift, arealformål og næringsutvikling
+          ligger ofte i ulike spor. Deep Dive skal ikke late som «folket bestemmer alene».
+        </p>
+        <div class="grid">
+          <article class="card">
+            <div class="num">Kommune</div>
+            <h3>Arealplan og dispensasjon</h3>
+            <p>Kommuneplanens arealdel, reguleringsplan og eventuelle dispensasjoner
+               avgjøres av kommunale organer. Innspill fra innbyggere er rådgivende.</p>
+          </article>
+          <article class="card">
+            <div class="num">Næring</div>
+            <h3>Campingdrift</h3>
+            <p>Eksisterende campingvirksomhet (f.eks. Sandnes Fjord Camping i Straumfjord)
+               eier og driver egen virksomhet innenfor lover, forskrifter og tillatelser.</p>
+          </article>
+          <article class="card">
+            <div class="num">Andre</div>
+            <h3>Natur, vei, naboskap</h3>
+            <p>Statsforvalter, vegmyndighet og naboer kan ha roller ved inngrep, tilkomst
+               og miljø. Blanding av kompetanse må synliggjøres i kunnskapskortet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="kunnskap">
+      <div class="wrap">
+        <h2>Kunnskapskort (eksempelutfylt)</h2>
+        <p class="section-lead">
+          Feltene under er fylt for å vise formatet. Tall og vurderinger merket
+          «ukjent» eller «illustrativt» er ikke faktiske saksdokumenter.
+        </p>
+        <div class="grid">
+          <article class="card">
+            <div class="field-label">Hva avgjøres?</div>
+            <h3>Politisk / planmessig signal</h3>
+            <p>Om kommunen bør legge til rette for kuppelovernatting (glamping) som del av
+               camping- og reiselivsutvikling langs fjorden — med Sandnes Fjord Camping
+               som illustrerende case for arealinnspill.</p>
+          </article>
+          <article class="card">
+            <div class="field-label">Hvem beslutter?</div>
+            <h3>Blandet myndighet</h3>
+            <p>Kommunestyre / planutvalg for areal. Driftsvalg hos næringen. StemmeApp-resultat
+               ville kun vært rådgivende innspill — aldri bindende vedtak.</p>
+          </article>
+          <article class="card">
+            <div class="field-label">Status i dag</div>
+            <h3>Illustrativt</h3>
+            <p>Camping med hytter, telt/bobilplasser m.m. finnes i området. Om kuppelovernatting
+               er søkt eller planlagt er <strong>ukjent i dette eksempelet</strong> — markert for ærlighet.</p>
+          </article>
+          <article class="card">
+            <div class="field-label">Alternativer (kort)</div>
+            <h3>Aktiv tilrettelegging · forsiktig utprøving · nei nå · mer utredning</h3>
+            <p>Full liste under «Foreslått spørsmål». Inkluderer «vet ikke / trenger mer info».</p>
+          </article>
+          <article class="card">
+            <div class="field-label">Fordeler (attribuerte)</div>
+            <ul>
+              <li><em>Næringsaktør / reiseliv:</em> lengre sesong, differensiert tilbud, flere overnattingsdøgn.</li>
+              <li><em>Kommune (hypotese):</em> lokal verdiskaping og synlighet langs E6-korridoren.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="field-label">Ulemper (attribuerte)</div>
+            <ul>
+              <li><em>Natur-/nabohensyn:</em> landskapsvirkning, lys, støy, strand-/fjordkant.</li>
+              <li><em>Planfaglig:</em> fare for bitvis utvikling uten helhetlig arealavklaring.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="field-label">Kostnader</div>
+            <h3>Ukjent</h3>
+            <p>Offentlige og private kostnader er <strong>ukjent</strong> i dette eksempelet.
+               En ekte Deep Dive ville krevd kilder før publisering.</p>
+          </article>
+          <article class="card">
+            <div class="field-label">Juridiske grenser</div>
+            <h3>Plan- og bygningslov m.m.</h3>
+            <p>Arealformål, byggesak, eventuelle vern- og miljøkrav. Innbyggerstemmer erstatter
+               ikke lovpålagte prosesser.</p>
+          </article>
+          <article class="card">
+            <div class="field-label">Usikkerheter</div>
+            <ul>
+              <li>Faktisk søknadsstatus for kupler: ukjent (eksempel).</li>
+              <li>Kapasitet, infrastruktur og lokal opinion: ikke kartlagt her.</li>
+              <li>Klima-/naturkonsekvenser: krever faglig vurdering.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="field-label">Kilder</div>
+            <h3>Se kildejournal</h3>
+            <p>Illustrative kilder under — ikke en komplett saksmappe. Primærkilder først i ekte sak.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="porter">
+      <div class="wrap">
+        <h2>Deep Dive-porter 0–7 (eksempelstatus)</h2>
+        <p class="section-lead">
+          Hver port må passeres før en sak kan fryses og åpnes. Her er eksempelstatus
+          for illustrasjonen — ikke en reell godkjenning.
+        </p>
+        <div class="ports">
+          <div class="port">
+            <div class="port-n">0</div>
+            <div>
+              <h3>Sakstrigger</h3>
+              <p>Areal-/næringsinnspill knyttet til campingutvikling; case valgt for demoprosess.</p>
+            </div>
+            <span class="status demo">Eksempel OK</span>
+          </div>
+          <div class="port">
+            <div class="port-n">1</div>
+            <div>
+              <h3>Jurisdiksjon</h3>
+              <p>Blandet: kommune (areal) + næring (drift). Rådgivende rolle tydeliggjort.</p>
+            </div>
+            <span class="status demo">Eksempel OK</span>
+          </div>
+          <div class="port">
+            <div class="port-n">2</div>
+            <div>
+              <h3>Kilder</h3>
+              <p>Illustrativ kildejournal laget; i produksjon kreves verifiserte primærkilder.</p>
+            </div>
+            <span class="status partial">Delvis (demo)</span>
+          </div>
+          <div class="port">
+            <div class="port-n">3</div>
+            <div>
+              <h3>Kontradiksjon</h3>
+              <p>Motargumenter om landskap, naboskap og bitvis utvikling er tatt inn i kortet.</p>
+            </div>
+            <span class="status demo">Eksempel OK</span>
+          </div>
+          <div class="port">
+            <div class="port-n">4</div>
+            <div>
+              <h3>Språk og alternativer</h3>
+              <p>Nøytralt spørsmål + balanserte valg inkl. «vet ikke / trenger mer info».</p>
+            </div>
+            <span class="status demo">Eksempel OK</span>
+          </div>
+          <div class="port">
+            <div class="port-n">5</div>
+            <div>
+              <h3>Dobbeltgodkjenning</h3>
+              <p>I produksjon: to mennesker signerer. Her: ikke utført (kun illustrasjon).</p>
+            </div>
+            <span class="status partial">Ikke utført</span>
+          </div>
+          <div class="port">
+            <div class="port-n">6</div>
+            <div>
+              <h3>Frys + hash</h3>
+              <p>Demo-hash av spørsmål+alternativer beregnet (SHA-256). Ingen ekte frysing.</p>
+            </div>
+            <span class="status demo">Demo-hash</span>
+          </div>
+          <div class="port">
+            <div class="port-n">7</div>
+            <div>
+              <h3>Publisering / åpning</h3>
+              <p>Ikke åpnet. Status forblir «eksempel — ikke åpen avstemning».</p>
+            </div>
+            <span class="status">Stengt</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sporsmal">
+      <div class="wrap">
+        <h2>Foreslått nøytralt spørsmål</h2>
+        <p class="section-lead">
+          Formulert for å unngå ledende språk. AI anbefaler <strong>ikke</strong> hvilket alternativ du bør velge.
+        </p>
+        <article class="card" style="margin-bottom:1.25rem">
+          <div class="field-label">Spørsmål (eksempel)</div>
+          <p style="color:var(--text);font-size:1.05rem;margin:0">
+            Bør Nordreisa kommune legge til rette for at campingnæringen kan utvikle
+            kuppelovernatting (glamping) som del av areal- og næringsutviklingen langs fjorden
+            — med Sandnes Fjord Camping som illustrerende case?
+          </p>
+        </article>
+        <div class="options" role="list">
+          <div class="option" role="listitem">
+            <strong>A) Ja — aktiv tilrettelegging</strong>
+            <span>Kommunen bør aktivt legge til rette i arealplan og retningslinjer, med tydelige miljø- og landskapskrav.</span>
+          </div>
+          <div class="option" role="listitem">
+            <strong>B) Delvis — forsiktig utprøving</strong>
+            <span>Tillat forsiktig utprøving i avgrensede områder etter konkret søknad, uten generell åpning i planen.</span>
+          </div>
+          <div class="option" role="listitem">
+            <strong>C) Nei — ikke nå</strong>
+            <span>Prioriter eksisterende overnattingstyper og strengere vern av fjordlandskap; ikke nye kuppel-/glampinganlegg nå.</span>
+          </div>
+          <div class="option" role="listitem">
+            <strong>D) Annet / mer utredning først</strong>
+            <span>Trenger bedre kartlegging av natur, nabokonsekvenser og næringsgevinst før politisk signal.</span>
+          </div>
+          <div class="option" role="listitem">
+            <strong>E) Vet ikke / trenger mer info</strong>
+            <span>Gyldig svar — ikke press for å velge blant A–D uten tilstrekkelig grunnlag.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kilder">
+      <div class="wrap">
+        <h2>Kildejournal (illustrativ)</h2>
+        <p class="section-lead">
+          2–4 plausible kilder for å vise journalformatet. Merket som illustrative —
+          ikke sitert som vedtatte kommunale dokumenter.
+        </p>
+        <div class="card" style="overflow-x:auto">
+          <table class="src-table">
+            <thead>
+              <tr>
+                <th>Kilde</th>
+                <th>Type</th>
+                <th>Bruk i eksempelet</th>
+                <th>Merknad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Kommuneplanens arealdel / planstrategi (Nordreisa) — illustrativ referanse</td>
+                <td>Kommunal plan</td>
+                <td>Rammer for arealformål og næringsutvikling</td>
+                <td>Illustrativ — sjekk gjeldende planverk ved ekte sak</td>
+              </tr>
+              <tr>
+                <td>Offentlige campingbeskrivelser: Sandnes Fjord Camping (Straumfjord / E6)</td>
+                <td>Fakta om eksisterende virksomhet</td>
+                <td>Kontekst: beliggenhet, overnattingstyper, reiselivskorridor</td>
+                <td>Illustrativ sammenstilling fra åpne reiselivskilder</td>
+              </tr>
+              <tr>
+                <td>Plan- og bygningsloven — generelle krav til areal og byggesak</td>
+                <td>Lovverk</td>
+                <td>Juridiske grenser for hva innspill kan og ikke kan erstatte</td>
+                <td>Generell — ikke saksbundet tolkning</td>
+              </tr>
+              <tr>
+                <td>Motargument-notat (demo): landskap, naboskap, bitvis utvikling</td>
+                <td>Kontradiksjon</td>
+                <td>Sikrer at ulemper er synlige i kunnskapskortet</td>
+                <td>Skrevet for Deep Dive-demo — ikke ekstern rapport</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="hash">
+      <div class="wrap">
+        <h2>Innholdshash (demo)</h2>
+        <p class="section-lead">
+          SHA-256 av den fryste teksten (spørsmål + alternativer) brukt i dette eksempelet.
+          I produksjon beregnes hashen etter dobbeltgodkjenning og lagres med tidsstempel.
+        </p>
+        <p class="hash-box" title="SHA-256 av spørsmål og alternativer">
+          sha256:06e3147fafa6df2885c8ea57c8b6c96c068531a44b66bae1eca1b9762cc410e4
+        </p>
+        <p class="pill-row">
+          <span class="pill">Algoritme: SHA-256</span>
+          <span class="pill">Omfang: spørsmål + alternativer A–E</span>
+          <span class="pill">Ikke en ekte frys — kun demonstrasjon</span>
+        </p>
+      </div>
+    </section>
+
+    <section id="regler">
+      <div class="wrap">
+        <div class="rules">
+          <h3>Harde regler (påminnelse)</h3>
+          <ul>
+            <li><strong>AI anbefaler ikke</strong> hvilket alternativ du bør velge.</li>
+            <li>StemmeApp er <strong>ikke</strong> et offisielt valgsystem.</li>
+            <li>Identitet ≠ stemmeseddel (ID holdes adskilt fra anonym ballot i produktet).</li>
+            <li>Ingen stille omskriving midt i en sak — endring krever ny versjon og ny Deep Dive.</li>
+            <li>Live opptelling er ikke standard; resultater publiseres etter metode og lukking.</li>
+          </ul>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="index.html">Tilbake til forsiden</a>
+          <a class="btn btn-ghost" href="trust.html">Trust Center</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap cols">
+      <div>
+        <strong>StemmeApp.no</strong>
+        <p>Eksempelside for Deep Dive — Nordreisa-pilot. Etterprøvbarhet før stemming.</p>
+      </div>
+      <div>
+        <strong>Disclaimer</strong>
+        <p>Ikke offisielt valg. Ikke åpen avstemning. Illustrasjon av prosess.</p>
+      </div>
+      <div>
+        <strong>Navigasjon</strong>
+        <p><a href="index.html">Forside</a> · <a href="trust.html">Tillit</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

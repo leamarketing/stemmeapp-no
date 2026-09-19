@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="StemmeApp Trust Center — hva vi lover, hva vi ikke lover. ID≠ballot, Deep Dive, ikke offisielt valgsystem.">
+  <meta name="theme-color" content="#0b1f1a">
+  <meta name="robots" content="index,follow">
+  <title>Trust Center · StemmeApp.no</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f1a'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%237dffb3' stroke-width='2'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0b1f1a;
+      --bg2: #122a23;
+      --card: #16332a;
+      --line: rgba(125, 255, 179, 0.18);
+      --text: #e8f6ef;
+      --muted: #9bb8ab;
+      --accent: #7dffb3;
+      --accent2: #5ec8ff;
+      --warn: #ffd28a;
+      --radius: 18px;
+      --max: 1080px;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: radial-gradient(1200px 600px at 10% -10%, #1a4a3a 0%, transparent 55%),
+                  radial-gradient(900px 500px at 100% 0%, #0e3a55 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: #b6ffd6; }
+    .wrap { width: min(100% - 2rem, var(--max)); margin-inline: auto; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11, 31, 26, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 0.85rem 0; flex-wrap: wrap;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.7rem;
+      color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .logo {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(145deg, #1f5b48, #0b1f1a);
+      border: 1px solid var(--line);
+      display: grid; place-items: center;
+    }
+    .logo span {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--accent); display: block;
+    }
+    .nav-links { display: flex; gap: 0.85rem; flex-wrap: wrap; font-size: 0.92rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.7rem; border-radius: 999px;
+      border: 1px solid var(--line); background: rgba(125,255,179,0.08);
+      color: var(--accent); font-size: 0.8rem; font-weight: 600;
+    }
+    .badge-warn {
+      border-color: rgba(255, 210, 138, 0.45);
+      background: rgba(255, 210, 138, 0.1);
+      color: var(--warn);
+    }
+    .hero { padding: 3rem 0 2rem; }
+    .hero h1 {
+      font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+      line-height: 1.15; margin: 1rem 0 0.75rem;
+      letter-spacing: -0.03em; max-width: 22ch;
+    }
+    .hero-sub { font-size: 1.05rem; color: var(--muted); max-width: 44rem; margin: 0 0 1.25rem; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 42rem; margin: 0 0 1.5rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.85rem 1.2rem; border-radius: 999px; font-weight: 700;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: #062018; }
+    .btn-primary:hover { filter: brightness(1.05); color: #062018; }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border-color: var(--line);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .notice {
+      margin-top: 1.5rem; padding: 1rem 1.1rem; border-radius: var(--radius);
+      border: 1px solid rgba(255, 210, 138, 0.35);
+      background: rgba(255, 210, 138, 0.08);
+      color: #ffe8c2; font-size: 0.95rem;
+    }
+    .notice-info {
+      border-color: rgba(94, 200, 255, 0.35);
+      background: rgba(94, 200, 255, 0.08);
+      color: #cceeff;
+    }
+    section { padding: 2.5rem 0; }
+    section h2 {
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      margin: 0 0 0.75rem; letter-spacing: -0.02em;
+    }
+    .section-lead { color: var(--muted); max-width: 42rem; margin: 0 0 1.5rem; }
+    .grid {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent), var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+    .card p, .card li { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .card .num {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 0.55rem;
+    }
+    .card ul { margin: 0.4rem 0 0; padding-left: 1.1rem; }
+    .card li { margin-bottom: 0.35rem; }
+    .field-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 0.35rem;
+    }
+    .ports { display: grid; gap: 0.55rem; }
+    .port {
+      display: grid; grid-template-columns: 3rem 1fr auto; gap: 0.85rem;
+      align-items: start; padding: 0.9rem 1rem;
+      border-radius: 14px; border: 1px solid var(--line); background: var(--bg2);
+    }
+    .port-n {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--accent); font-weight: 700; font-size: 0.9rem;
+    }
+    .port h3 { margin: 0 0 0.2rem; font-size: 0.98rem; }
+    .port p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .status {
+      font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.55rem;
+      border-radius: 999px; border: 1px solid var(--line); white-space: nowrap;
+      color: var(--accent); background: rgba(125,255,179,0.08);
+    }
+    .status.partial { color: var(--warn); background: rgba(255,210,138,0.1); border-color: rgba(255,210,138,0.35); }
+    .status.demo { color: var(--accent2); background: rgba(94,200,255,0.1); border-color: rgba(94,200,255,0.35); }
+    .options { display: grid; gap: 0.65rem; }
+    .option {
+      padding: 1rem 1.1rem; border-radius: 14px;
+      border: 1px solid var(--line); background: var(--bg2);
+    }
+    .option strong { display: block; margin-bottom: 0.25rem; color: var(--text); }
+    .option span { color: var(--muted); font-size: 0.92rem; }
+    .hash-box {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.78rem; word-break: break-all;
+      padding: 1rem; border-radius: 14px;
+      border: 1px dashed var(--line); background: rgba(0,0,0,0.25);
+      color: var(--accent);
+    }
+    .src-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .src-table th, .src-table td {
+      text-align: left; padding: 0.65rem 0.5rem;
+      border-bottom: 1px solid var(--line); vertical-align: top;
+    }
+    .src-table th { color: var(--accent2); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .src-table td { color: var(--muted); }
+    .src-table td:first-child { color: var(--text); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .pill {
+      padding: 0.4rem 0.75rem; border-radius: 999px;
+      border: 1px solid var(--line); color: var(--muted); font-size: 0.85rem;
+      background: rgba(0,0,0,0.15);
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem;
+    }
+    footer .cols {
+      display: grid; gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    footer strong { color: var(--text); }
+    .rules {
+      border: 1px solid rgba(125,255,179,0.28);
+      background: rgba(125,255,179,0.06);
+      border-radius: var(--radius);
+      padding: 1.15rem 1.25rem;
+    }
+    .rules h3 { margin: 0 0 0.5rem; }
+    .rules ul { margin: 0; padding-left: 1.15rem; color: var(--muted); }
+    .rules li { margin-bottom: 0.35rem; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="StemmeApp forsiden">
+        <span class="logo" aria-hidden="true"><span></span></span>
+        StemmeApp.no
+      </a>
+      <nav class="nav-links" aria-label="Hovedmeny">
+        <a href="index.html">Forside</a>
+        <a href="trust.html" aria-current="page">Tillit</a>
+        <a href="deep-dive-eksempel.html">Deep Dive-eksempel</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="badge">Trust Center</span>
+        <h1>Tillit uten «tro oss»</h1>
+        <p class="hero-sub">
+          StemmeApp er bygget for <em>etterprøvbarhet</em> — ikke for raskest mulig meningsmåling.
+          Her er det vi lover, og det vi bevisst ikke lover.
+        </p>
+        <p class="notice" role="note">
+          <strong>Viktig:</strong> StemmeApp er <em>ikke</em> et offisielt offentlig valgsystem
+          og erstatter ikke kommune-, fylkes- eller stortingsvalg.
+        </p>
+      </div>
+    </section>
+
+    <section id="lover">
+      <div class="wrap">
+        <h2>Hva vi lover</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Deep Dive før stemming</h3>
+            <p>Ingen sak publiseres uten dokumentert jurisdiksjon, kilder, kontradiksjon,
+               nøytralt språk og sporbar godkjenning.</p>
+          </article>
+          <article class="card">
+            <h3>Fryste spørsmål + hash</h3>
+            <p>Når en sak åpnes, er formuleringen fryst. Endring = ny versjon. Innhold kan hashes.</p>
+          </article>
+          <article class="card">
+            <h3>ID ≠ ballot</h3>
+            <p>Identitet brukes for å stoppe dobbeltstemming. Den anonyme stemmeseddelen
+               holdes adskilt fra personopplysninger i produktdesignet.</p>
+          </article>
+          <article class="card">
+            <h3>Ærlig representativitet</h3>
+            <p>Vi skiller «de som deltok» fra «hele befolkningen». Interessegrupper kan få egen deltelling.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ikke">
+      <div class="wrap">
+        <h2>Hva vi ikke lover</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Ikke offisielt valg</h3>
+            <p>Resultater er rådgivende innspill. De erstatter ikke demokratiske valg eller kommunale vedtak.</p>
+          </article>
+          <article class="card">
+            <h3>Ingen live tally som standard</h3>
+            <p>Løpende offentlig opptelling midt i en sak er ikke standard. Metoden prioriterer ro og etterprøvbarhet.</p>
+          </article>
+          <article class="card">
+            <h3>AI anbefaler ikke valg</h3>
+            <p>Modeller kan hjelpe med struktur og kildearbeid. De skal ikke fortelle deg hvilket alternativ du bør stemme.</p>
+          </article>
+          <article class="card">
+            <h3>Ikke «hele folket har talt»</h3>
+            <p>Deltakelse er frivillig og selektiv. Vi lover synlig metode — ikke falsk representativitet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="differensiering">
+      <div class="wrap">
+        <h2>Etterprøvbarhet vs. rask meningsfangst</h2>
+        <p class="section-lead">
+          Andre tjenester kan samle meninger raskt. StemmeApp differensierer på at saken
+          er dokumentert, formulert nøytralt, fryst og kontrollerbar — før og etter stemming.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="deep-dive-eksempel.html">Se Deep Dive-eksempel (Nordreisa)</a>
+          <a class="btn btn-ghost" href="index.html">Til forsiden</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap cols">
+      <div>
+        <strong>StemmeApp.no</strong>
+        <p>Rådgivende · synlig · etterprøvbart.</p>
+      </div>
+      <div>
+        <strong>Kontakt</strong>
+        <p><a href="mailto:geiramdal@gmail.com?subject=StemmeApp%20Tillit">geiramdal@gmail.com</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
