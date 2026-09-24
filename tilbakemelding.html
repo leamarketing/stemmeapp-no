@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Rapporter feil, forslag og andre funn fra testing av StemmeApp. Rapporten brukes bare til oppfølging.">
+  <meta name="theme-color" content="#0b1f1a">
+  <meta name="robots" content="index,follow">
+  <title>Tilbakemelding · StemmeApp.no</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1f1a'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%237dffb3' stroke-width='2'/%3E%3C/svg%3E">
+  <!--
+    Kontrakt mot voteapp.eu (egen endring i app-repoet, ingen nøkkel her):
+    POST https://voteapp.eu/api/feedback
+    Content-Type: application/json
+    CORS: https://stemmeapp.no og https://www.stemmeapp.no (OPTIONS + POST)
+    Body: { source, type, title, description, pageUrl, name, email, userAgent }
+    type: "bug" | "forslag" | "annet"
+    Tomme valgfrie felt sendes som null. Svar 2xx = mottatt.
+    Feltet "company" er honeypot og sendes ikke.
+  -->
+  <style>
+    :root {
+      --bg: #0b1f1a;
+      --bg2: #122a23;
+      --card: #16332a;
+      --line: rgba(125, 255, 179, 0.18);
+      --text: #e8f6ef;
+      --muted: #9bb8ab;
+      --accent: #7dffb3;
+      --accent2: #5ec8ff;
+      --warn: #ffd28a;
+      --radius: 18px;
+      --max: 1080px;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: radial-gradient(1200px 600px at 10% -10%, #1a4a3a 0%, transparent 55%),
+                  radial-gradient(900px 500px at 100% 0%, #0e3a55 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: #b6ffd6; }
+    .wrap { width: min(100% - 2rem, var(--max)); margin-inline: auto; }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(11, 31, 26, 0.82);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 0.85rem 0; flex-wrap: wrap;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.7rem;
+      color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 0.02em;
+    }
+    .logo {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(145deg, #1f5b48, #0b1f1a);
+      border: 1px solid var(--line);
+      display: grid; place-items: center;
+    }
+    .logo span {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--accent); display: block;
+    }
+    .nav-links { display: flex; gap: 0.85rem; flex-wrap: wrap; font-size: 0.92rem; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a[aria-current="page"] { color: var(--text); font-weight: 700; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.7rem; border-radius: 999px;
+      border: 1px solid var(--line); background: rgba(125,255,179,0.08);
+      color: var(--accent); font-size: 0.8rem; font-weight: 600;
+    }
+    .hero { padding: 3rem 0 0.5rem; }
+    .hero h1 {
+      font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+      line-height: 1.15; margin: 1rem 0 0.75rem;
+      letter-spacing: -0.03em; max-width: 18ch;
+    }
+    .lead { font-size: 1.08rem; color: var(--muted); max-width: 40rem; margin: 0; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.85rem 1.2rem; border-radius: 999px; font-weight: 700;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      font: inherit; line-height: 1.2;
+    }
+    .btn-primary { background: var(--accent); color: #062018; }
+    .btn-primary:hover { filter: brightness(1.05); color: #062018; }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border-color: var(--line);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    button.btn:disabled { opacity: 0.65; cursor: progress; filter: none; }
+    section { padding: 1.75rem 0 2.5rem; }
+    .stack { display: grid; gap: 1rem; max-width: 42rem; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent), var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .field { margin: 0 0 1.15rem; border: 0; padding: 0; min-inline-size: 0; }
+    .field legend, .field > label {
+      display: block; font-weight: 700; font-size: 0.98rem;
+    }
+    .req, .opt {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-left: 0.4rem;
+    }
+    .req { color: var(--accent); }
+    .opt { color: var(--muted); font-weight: 600; }
+    .hint { margin: 0.3rem 0 0; color: var(--muted); font-size: 0.88rem; font-weight: 400; }
+    .choices { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.65rem; }
+    .choice {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.5rem 0.85rem; border-radius: 999px;
+      border: 1px solid var(--line); background: var(--bg2);
+      cursor: pointer; font-weight: 600;
+    }
+    .choice input { accent-color: #7dffb3; width: 1rem; height: 1rem; margin: 0; }
+    .choice:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .choice:has(input:checked) {
+      border-color: var(--accent);
+      background: rgba(125, 255, 179, 0.12);
+    }
+    input[type="text"], input[type="email"], textarea {
+      display: block; width: 100%; margin-top: 0.45rem;
+      padding: 0.75rem 0.85rem; border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--text); font: inherit;
+    }
+    textarea { min-height: 9rem; resize: vertical; }
+    input:focus-visible, textarea:focus-visible, .btn:focus-visible {
+      outline: 2px solid var(--accent); outline-offset: 2px;
+    }
+    fieldset[aria-invalid="true"] .choice,
+    input[aria-invalid="true"], textarea[aria-invalid="true"] {
+      border-color: rgba(255, 180, 180, 0.85);
+    }
+    .form-error, .thanks {
+      padding: 1rem 1.1rem; border-radius: var(--radius); margin: 0 0 1rem;
+    }
+    .form-error {
+      border: 1px solid rgba(255, 180, 180, 0.45);
+      background: rgba(255, 120, 120, 0.1);
+      color: #ffd8d8;
+      scroll-margin-top: 5.5rem;
+    }
+    .form-error[hidden], .thanks[hidden] { display: none; }
+    .thanks {
+      border: 1px solid var(--line);
+      background: rgba(125, 255, 179, 0.08);
+    }
+    .thanks h2 { margin: 0 0 0.4rem; font-size: 1.35rem; letter-spacing: -0.02em; }
+    .thanks p { margin: 0 0 1rem; color: var(--muted); }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.25rem; }
+    .fallback.is-attention {
+      border-color: rgba(255, 210, 138, 0.55);
+      background: rgba(255, 210, 138, 0.08);
+    }
+    .fallback h2 { margin: 0 0 0.4rem; font-size: 1.05rem; }
+    .fallback p { margin: 0 0 0.9rem; color: var(--muted); }
+    .fallback p:last-child { margin: 0; }
+    .privacy { margin: 0; color: var(--muted); font-size: 0.9rem; max-width: 42rem; }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0 3rem; color: var(--muted); font-size: 0.9rem;
+    }
+    footer .cols {
+      display: grid; gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    footer strong { color: var(--text); }
+    .hp {
+      position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;
+    }
+    @media (max-width: 640px) {
+      .form-actions .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="StemmeApp forsiden">
+        <span class="logo" aria-hidden="true"><span></span></span>
+        StemmeApp.no
+      </a>
+      <nav class="nav-links" aria-label="Hovedmeny">
+        <a href="index.html">Forside</a>
+        <a href="trust.html">Tillit</a>
+        <a href="deep-dive-eksempel.html">Deep Dive-eksempel</a>
+        <a href="tilbakemelding.html" aria-current="page">Tilbakemelding</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="badge">Testing</span>
+        <h1>Meld fra om feil og funn</h1>
+        <p class="lead">
+          Tester du StemmeApp, kan du sende en kort rapport her.
+          Vi leser den for å rette feil og forbedre løsningen.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap stack">
+        <div id="form-panel" class="card">
+          <form id="feedback-form" novalidate>
+            <fieldset class="field" id="field-type">
+              <legend>Type <span class="req">påkrevd</span></legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="type" value="bug" required> Bug</label>
+                <label class="choice"><input type="radio" name="type" value="forslag"> Forslag</label>
+                <label class="choice"><input type="radio" name="type" value="annet"> Annet</label>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label for="title">Kort tittel <span class="req">påkrevd</span></label>
+              <input id="title" name="title" type="text" maxlength="160" required autocomplete="off" placeholder="Kort om hva du fant">
+            </div>
+
+            <div class="field">
+              <label for="description">Beskrivelse <span class="req">påkrevd</span></label>
+              <p class="hint" id="description-hint">Hva skjedde, hva du forventet, og hvordan vi kan se det igjen.</p>
+              <textarea id="description" name="description" maxlength="5000" required aria-describedby="description-hint" placeholder="Beskriv funnet med egne ord"></textarea>
+            </div>
+
+            <div class="hp" aria-hidden="true">
+              <label for="company">La dette feltet stå tomt</label>
+              <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="field">
+              <label for="page-url">Side eller adresse der det skjedde <span class="opt">valgfritt</span></label>
+              <input id="page-url" name="pageUrl" type="text" maxlength="500" autocomplete="off" inputmode="url" placeholder="https://voteapp.eu/… eller navnet på skjermen">
+            </div>
+
+            <div class="field">
+              <label for="name">Navn <span class="opt">valgfritt</span></label>
+              <input id="name" name="name" type="text" maxlength="120" autocomplete="name">
+            </div>
+
+            <div class="field">
+              <label for="email">E-post for oppfølging <span class="opt">valgfritt</span></label>
+              <p class="hint" id="email-hint">Bare hvis du vil at vi skal kunne svare deg.</p>
+              <input id="email" name="email" type="email" maxlength="200" autocomplete="email" aria-describedby="email-hint" placeholder="navn@example.com">
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" id="submit-btn" type="submit">Send tilbakemelding</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="form-error" class="form-error" role="alert" hidden></div>
+
+        <div id="thanks" class="thanks card" hidden>
+          <h2 id="thanks-title" tabindex="-1">Takk for tilbakemeldingen</h2>
+          <p>Rapporten er sendt. Vi bruker den bare til å følge opp saken.</p>
+          <button class="btn btn-ghost" id="another-report" type="button">Send en ny rapport</button>
+        </div>
+
+        <aside class="card fallback" id="fallback" aria-label="E-post som reserve">
+          <h2>Send på e-post i stedet</h2>
+          <p>
+            Hvis sendingen ikke kommer fram, kan du sende det samme direkte.
+            Lenken åpner en e-post til admin@voteapp.eu med emnet «Tilbakemelding StemmeApp» og teksten du har fylt inn.
+          </p>
+          <p>
+            <a class="btn btn-ghost" id="mailto-fallback" href="mailto:admin@voteapp.eu?subject=Tilbakemelding%20StemmeApp">Skriv til admin@voteapp.eu</a>
+          </p>
+        </aside>
+
+        <p class="privacy">
+          Personvern: Det du skriver, brukes bare til å følge opp denne rapporten, ikke til markedsføring.
+          Navn og e-post er valgfritt. Nettlesertype kan følge med, slik at feil er lettere å gjenskape.
+        </p>
+
+        <noscript>
+          <p class="privacy">Skjemaet trenger JavaScript for å sende direkte. E-postlenken over virker likevel.</p>
+        </noscript>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap cols">
+      <div>
+        <strong>StemmeApp.no</strong>
+        <p>Rådgivende · synlig · etterprøvbart. Ikke et offentlig valgsystem.</p>
+      </div>
+      <div>
+        <strong>Tilbakemelding</strong>
+        <p><a href="mailto:admin@voteapp.eu?subject=Tilbakemelding%20StemmeApp">admin@voteapp.eu</a></p>
+      </div>
+      <div>
+        <strong>Navigasjon</strong>
+        <p><a href="index.html">Forside</a> · <a href="trust.html">Tillit</a> · <a href="deep-dive-eksempel.html">Deep Dive-eksempel</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var ENDPOINT = "https://voteapp.eu/api/feedback";
+      var MAILBOX = "admin@voteapp.eu";
+      var TYPE_LABEL = { bug: "Bug", forslag: "Forslag", annet: "Annet" };
+
+      var form = document.getElementById("feedback-form");
+      var formPanel = document.getElementById("form-panel");
+      var errorBox = document.getElementById("form-error");
+      var thanks = document.getElementById("thanks");
+      var thanksTitle = document.getElementById("thanks-title");
+      var submitBtn = document.getElementById("submit-btn");
+      var mailto = document.getElementById("mailto-fallback");
+      var fallback = document.getElementById("fallback");
+      var another = document.getElementById("another-report");
+      var pageInput = document.getElementById("page-url");
+      var prefilledPage = "";
+
+      function text(value, max) {
+        var v = String(value || "").replace(/[\u0000-\u001F\u007F]/g, " ").trim();
+        if (v.length > max) v = v.slice(0, max);
+        return v;
+      }
+
+      function safePage(value) {
+        var v = text(value, 500);
+        if (/^javascript:/i.test(v)) return "";
+        return v;
+      }
+
+      function selectedType() {
+        var picked = form.querySelector('input[name="type"]:checked');
+        return picked ? picked.value : "";
+      }
+
+      function readFields() {
+        return {
+          type: selectedType(),
+          title: text(document.getElementById("title").value, 160),
+          description: text(document.getElementById("description").value, 5000),
+          pageUrl: safePage(pageInput.value),
+          name: text(document.getElementById("name").value, 120),
+          email: text(document.getElementById("email").value, 200)
+        };
+      }
+
+      function emailOk(value) {
+        if (!value) return true;
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      function buildMailto(data) {
+        var subject = "Tilbakemelding StemmeApp";
+        var label = TYPE_LABEL[data.type] || "";
+        if (data.title) subject += ": " + (label ? label + " — " : "") + data.title;
+        var body = [
+          "Type: " + (label || "(ikke valgt)"),
+          "Tittel: " + data.title,
+          "Beskrivelse:",
+          data.description,
+          "",
+          "Side/URL: " + (data.pageUrl || ""),
+          "Navn: " + (data.name || ""),
+          "E-post: " + (data.email || ""),
+          "",
+          "Sendt fra https://stemmeapp.no/tilbakemelding.html"
+        ].join("\r\n");
+        if (body.length > 1500) {
+          body = body.slice(0, 1400) + "\r\n… (teksten er forkortet — lim inn resten)";
+        }
+        return "mailto:" + MAILBOX + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      }
+
+      function refreshMailto() {
+        mailto.href = buildMailto(readFields());
+      }
+
+      function showError(message) {
+        errorBox.textContent = message;
+        errorBox.hidden = false;
+        errorBox.setAttribute("tabindex", "-1");
+        errorBox.focus();
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        errorBox.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      }
+
+      function clearError() {
+        errorBox.hidden = true;
+        errorBox.textContent = "";
+      }
+
+      function markInvalid(invalidType, invalidTitle, invalidDescription, invalidEmail) {
+        document.getElementById("field-type").setAttribute("aria-invalid", invalidType ? "true" : "false");
+        document.getElementById("title").setAttribute("aria-invalid", invalidTitle ? "true" : "false");
+        document.getElementById("description").setAttribute("aria-invalid", invalidDescription ? "true" : "false");
+        document.getElementById("email").setAttribute("aria-invalid", invalidEmail ? "true" : "false");
+      }
+
+      function showThanks() {
+        clearError();
+        formPanel.hidden = true;
+        thanks.hidden = false;
+        fallback.classList.remove("is-attention");
+        thanksTitle.focus();
+      }
+
+      function payload(data) {
+        return {
+          source: "stemmeapp.no",
+          type: data.type,
+          title: data.title,
+          description: data.description,
+          pageUrl: data.pageUrl || null,
+          name: data.name || null,
+          email: data.email || null,
+          userAgent: navigator.userAgent || ""
+        };
+      }
+
+      function initialPageUrl() {
+        var params = new URLSearchParams(window.location.search);
+        var fromQuery = safePage(params.get("url") || params.get("side") || "");
+        if (fromQuery) return fromQuery;
+        if (!document.referrer) return "";
+        try {
+          var here = new URL(window.location.href);
+          var there = new URL(document.referrer);
+          if (there.host === here.host && /tilbakemelding\.html$/.test(there.pathname)) return "";
+          return safePage(there.href);
+        } catch (err) {
+          return "";
+        }
+      }
+
+      form.addEventListener("input", function () {
+        refreshMailto();
+      });
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        clearError();
+        fallback.classList.remove("is-attention");
+
+        var data = readFields();
+        var invalidType = !TYPE_LABEL[data.type];
+        var invalidTitle = !data.title;
+        var invalidDescription = !data.description;
+        var invalidEmail = !emailOk(data.email);
+        markInvalid(invalidType, invalidTitle, invalidDescription, invalidEmail);
+
+        if (invalidType || invalidTitle || invalidDescription) {
+          showError("Fyll inn type, kort tittel og beskrivelse.");
+          return;
+        }
+        if (invalidEmail) {
+          showError("Sjekk e-postadressen, eller la feltet stå tomt.");
+          return;
+        }
+
+        refreshMailto();
+
+        if (text(document.getElementById("company").value, 200)) {
+          showThanks();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sender…";
+
+        var controller = new AbortController();
+        var timer = setTimeout(function () { controller.abort(); }, 20000);
+
+        fetch(ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(payload(data)),
+          mode: "cors",
+          signal: controller.signal
+        }).then(function (res) {
+          return res.text().then(function (raw) {
+            var parsed = null;
+            if (raw) {
+              try { parsed = JSON.parse(raw); } catch (err) { parsed = null; }
+            }
+            if (!res.ok || (parsed && parsed.ok === false)) {
+              throw new Error("status");
+            }
+          });
+        }).then(function () {
+          showThanks();
+        }).catch(function () {
+          showError("Vi fikk ikke levert rapporten automatisk. Bruk e-postlenken under, så kommer den likevel fram til admin@voteapp.eu.");
+          fallback.classList.add("is-attention");
+        }).then(function () {
+          clearTimeout(timer);
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Send tilbakemelding";
+        });
+      });
+
+      another.addEventListener("click", function () {
+        form.reset();
+        pageInput.value = prefilledPage;
+        markInvalid(false, false, false, false);
+        clearError();
+        formPanel.hidden = false;
+        thanks.hidden = true;
+        refreshMailto();
+        document.getElementById("title").focus();
+      });
+
+      prefilledPage = initialPageUrl();
+      if (prefilledPage) pageInput.value = prefilledPage;
+      refreshMailto();
+    })();
+  </script>
+</body>
+</html>
