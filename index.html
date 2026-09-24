@@ -6,7 +6,7 @@
   <meta name="description" content="StemmeApp.no — rådgivende innbyggerdeltakelse med dokumentert kunnskapsgrunnlag. Pilot: Nordreisa. Ikke et offisielt valgsystem.">
   <meta name="theme-color" content="#0b1f1a">
   <meta property="og:title" content="StemmeApp.no">
-  <meta property="og:description" content="Forstå saken. Stem rådgivende. Se resultatet — synlig og etterprøvbart.">
+  <meta property="og:description" content="Forstå saken før du tar stilling — rådgivende innbyggerdeltakelse med synlig metode.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://stemmeapp.no/">
   <meta property="og:image" content="https://stemmeapp.no/images/hero-v1-fjord-family.png">
@@ -201,6 +201,14 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
     footer strong { color: var(--text); }
+
+    .check-list { margin: 0 0 1rem; padding-left: 1.15rem; color: var(--muted); }
+    .check-list li { margin-bottom: 0.4rem; }
+    .nav-links a.nav-cta {
+      color: #062018; background: var(--accent); border-radius: 999px;
+      padding: 0.35rem 0.75rem; font-weight: 700;
+    }
+    .nav-links a.nav-cta:hover { color: #062018; filter: brightness(1.05); }
     .sr-only {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
@@ -214,14 +222,14 @@
         <span class="logo" aria-hidden="true"><span></span></span>
         StemmeApp.no
       </a>
-      <nav class="nav-links" aria-label="Hovedmeny">
-        <a href="#hvordan">Hvordan</a>
-        <a href="#sted">Sted</a>
+            <nav class="nav-links" aria-label="Hovedmeny">
+        <a href="#top">Forside</a>
+        <a href="#aktive-saker">Aktive saker</a>
+        <a href="#hvordan">Hvordan det virker</a>
         <a href="#deepdive">Deep Dive</a>
-        <a href="trust.html">Tillit</a>
-        <a href="#trust-center">Trust Center</a>
-        <a href="deep-dive-eksempel.html">Eksempel</a>
-        <a href="#pilot">Pilot</a>
+        <a href="trust.html">Tillit og metode</a>
+        <a href="#pilot">Nordreisa pilot</a>
+        <a class="nav-cta" href="https://voteapp.eu">Åpne StemmeApp</a>
       </nav>
     </div>
   </header>
@@ -229,29 +237,29 @@
   <main id="top">
     <section class="hero">
       <div class="wrap hero-layout">
-        <div class="hero-copy">
-          <span class="badge">Rådgivende · Synlig · Etterprøvbart</span>
-          <h1>Forstå saken. Stem. Se resultatet.</h1>
+                <div class="hero-copy">
+          <span class="badge">Rådgivende · Åpent · Etterprøvbart</span>
+          <h1>Forstå saken før du tar stilling</h1>
           <p class="lead">
-            StemmeApp er et rolig beslutnings- og innspillsverktøy for lokalsamfunn —
-            synkronisert mellom app og nettside. Først Nordreisa, deretter flere kommuner,
-            fylker og nasjon.
+            StemmeApp er et verktøy for rådgivende innbyggerdeltakelse.
+            Før du logger inn skal du kunne se hva saken gjelder, det eksakte spørsmålet,
+            alle svaralternativene, relevante kilder og hvordan resultatet skal behandles.
+            Første pilotområde er Nordreisa.
           </p>
           <div class="cta-row">
-            <a class="btn btn-primary" href="#pilot">Nordreisa-pilot</a>
-            <a class="btn btn-ghost" href="deep-dive-eksempel.html">Deep Dive-eksempel</a>
-            <a class="btn btn-ghost" href="trust.html">Trust Center</a>
+            <a class="btn btn-primary" href="https://voteapp.eu">Se aktive saker</a>
+            <a class="btn btn-ghost" href="#hvordan">Hvordan det virker</a>
+            <a class="btn btn-ghost" href="#tillit">Tillit og metode</a>
           </div>
           <p class="notice" role="note">
-            <strong>Viktig:</strong> StemmeApp er <em>ikke</em> et offisielt offentlig valgsystem
-            og erstatter ikke kommune-, fylkes- eller stortingsvalg. Resultater er rådgivende
-            innspill med dokumentert metode.
+            <strong>Viktig:</strong> StemmeApp er ikke et offentlig valgsystem og erstatter ikke
+            kommune-, fylkes- eller stortingsvalg. Resultatene er rådgivende innspill.
           </p>
         </div>
         <figure class="media-slot media-slot--hero media-slot--fjord">
           <img
             src="images/hero-v1-fjord-family.png"
-            alt="Familie ved en nordnorsk fjord i kveldssol, med budskapet: forstå saken, stem, og se resultatet."
+            alt="StemmeApp: forstå saken før du tar stilling — rådgivende innbyggerdeltakelse."
             width="1280"
             height="720"
             decoding="async"
@@ -260,17 +268,46 @@
       </div>
     </section>
 
-    <section id="hvordan">
+
+    <section id="aktive-saker">
       <div class="wrap">
-        <h2>Tre søyler — én datakjerne</h2>
+        <h2>Aktive saker</h2>
         <p class="section-lead">
-          All stemming går til samme backend. Nettsiden viser resultater.
-          Appen er stemmekanalen. Deep Dive godkjenner spørsmål og svaralternativer.
+          Du trenger ikke logge inn for å forstå hva du blir bedt om å ta stilling til.
+        </p>
+        <div class="card" style="margin-bottom:1rem">
+          <p style="margin:0 0 0.75rem;color:var(--muted)">
+            For hver aktiv sak viser vi offentlig:
+          </p>
+          <p style="margin:0;color:var(--text);font-weight:600">
+            det eksakte spørsmålet · alle svaralternativene · kommune/område · status · frist · Deep Dive · kilder
+          </p>
+        </div>
+        <p class="section-lead">
+          Når en sak er åpen, skal svaralternativene presenteres likt og uten at ett alternativ
+          fremheves fremfor de andre.
+        </p>
+        <p class="section-lead">
+          Løpende resultatfordeling er skjult som standard for nye saker, slik at foreløpige tall
+          ikke skal påvirke senere deltagere.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://voteapp.eu">Åpne oversikt over aktive saker</a>
+        </div>
+      </div>
+    </section>
+
+        <section id="hvordan">
+      <div class="wrap">
+        <h2>Én prosess – tre deler</h2>
+        <p class="section-lead">
+          All deltagelse går gjennom samme åpne saksgang. Nettsiden viser saken.
+          StemmeApp er deltagelseskanalen. Deep Dive er kunnskaps- og nøytralitetskontroll før åpning.
         </p>
         <figure class="media-slot media-slot--banner media-slot--hvordan">
           <img
             src="images/section-hvordan-tre-soyler.png"
-            alt="Tre søyler: nettside med synlig resultat, app som stemmekanal, og Deep Dive som portvakt."
+            alt="Én prosess i tre deler: nettside, StemmeApp-deltagelse og Deep Dive."
             width="1280"
             height="720"
             decoding="async"
@@ -278,21 +315,24 @@
         </figure>
         <div class="grid">
           <article class="card">
-            <div class="num">A · Nettside</div>
-            <h3>Offentlig transparens</h3>
-            <p>Sak, kunnskapskort, metode, deltakelse og fryste resultater — alltid synlig.</p>
+            <div class="num">Nettsiden</div>
+            <h3>Åpenhet</h3>
+            <p>Her kan alle følge saken, lese spørsmålet og svaralternativene, se kunnskapsgrunnlaget og senere kontrollere det publiserte resultatet.</p>
           </article>
           <article class="card">
-            <div class="num">B · App</div>
-            <h3>Stemmekanalen</h3>
-            <p>Varsler, sted, interessegrupper, én stemme per sak, bekreftelse og sync til web.</p>
+            <div class="num">StemmeApp</div>
+            <h3>Deltagelse</h3>
+            <p>Her deltar innbyggeren i rådgivende saker som er relevante for sted og interesser.</p>
           </article>
           <article class="card">
-            <div class="num">C · Deep Dive</div>
-            <h3>Portvakt for formulering</h3>
-            <p>Kilder, kontradiksjon, nøytralt språk og menneskelig dobbeltgodkjenning før publisering.</p>
+            <div class="num">Deep Dive</div>
+            <h3>Kunnskaps- og nøytralitetskontroll</h3>
+            <p>Før en sak åpnes vurderes blant annet jurisdiksjon, kilder, motargumenter, usikkerhet, språk og svaralternativer.</p>
           </article>
         </div>
+        <p class="section-lead" style="margin-top:1.25rem">
+          AI kan hjelpe med analyse og kildearbeid. AI skal ikke anbefale hvilket politisk alternativ en innbygger bør velge.
+        </p>
       </div>
     </section>
 
@@ -319,6 +359,14 @@
           <span class="pill">Ungdom</span>
           <span class="pill">Eldre</span>
           <span class="pill">Beredskap</span>
+        </div>
+        <div class="card" style="margin-top:1.25rem">
+          <h3 style="margin:0 0 0.5rem">Interessegrupper handler om relevans – ikke mer makt</h3>
+          <p style="margin:0;color:var(--muted)">
+            Interessegrupper kan brukes for å finne relevante saker, varsle deltagere og synliggjøre hvilke temaer mennesker ønsker å følge.
+            Medlemskap i flere interessegrupper skal ikke gi en person flere stemmer eller større stemmevekt.
+            Én person skal fortsatt ha samme deltagelsesrett som en annen kvalifisert deltager i samme sak.
+          </p>
         </div>
       </div>
     </section>
@@ -360,8 +408,8 @@
           </article>
           <article>
             <div>
-              <h3>Dobbeltgodkjenning</h3>
-              <p>To mennesker signerer. Versjonen fryses og hashes før åpning.</p>
+              <h3>Menneskelig godkjenning før publisering</h3>
+              <p>Normalregelen er menneskelig kontroll av Deep Dive og endelig spørsmålsversjon før saken åpnes. Pilotmodus med redusert krav skal være synlig. Åpnet versjon fryses; vesentlig endring krever ny versjon og ny kontroll.</p>
             </div>
           </article>
         </div>
@@ -372,39 +420,75 @@
       </div>
     </section>
 
-    <section id="tillit">
+        <section id="tillit">
       <div class="wrap">
         <h2>Tillit uten «tro oss»</h2>
         <p class="section-lead">
-          Målet er ikke å love det umulige. Målet er at andre kan kontrollere systemet.
-          Se også eget <a href="trust.html">Trust Center</a>.
+          StemmeApp skal ikke være avhengig av at innbyggeren bare stoler på dem som driver systemet.
+          Derfor forsøker vi å gjøre selve prosessen synlig. Se også <a href="trust.html">Tillit og metode</a>.
         </p>
         <figure class="media-slot media-slot--banner media-slot--tillit">
           <img
             src="images/section-tillit.png"
-            alt="To personer med identitet og stemmeseddel holdt adskilt — tillit som kan kontrolleres, ikke bare loves."
+            alt="Tillit gjennom synlig metode — ikke bare løfter."
             width="1280"
             height="720"
             decoding="async"
             loading="lazy">
         </figure>
+        <ul class="check-list">
+          <li>Hva var spørsmålet?</li>
+          <li>Hvilke alternativer fantes?</li>
+          <li>Hvilke kilder ble brukt?</li>
+          <li>Hva var usikkert?</li>
+          <li>Hvilken versjon ble åpnet for deltagelse?</li>
+          <li>Hvor mange deltok?</li>
+          <li>Hvordan ble resultatet beregnet?</li>
+        </ul>
+        <p class="section-lead">
+          Målet er at en utenforstående i etterkant skal kunne forstå hva som skjedde og hvilke regler som gjaldt.
+        </p>
         <div class="grid">
           <article class="card">
-            <h3>Én person, én stemme</h3>
-            <p>Database stopper dobbeltstemming. Identitet holdes adskilt fra anonym ballot (ID≠ballot).</p>
+            <h3>Identitet og stemmesvar som ulike sikkerhetsområder</h3>
+            <p>Identitet kan være nødvendig for å kontrollere rett til å delta og hindre flere svar i samme sak. Den offentlige resultatvisningen inneholder ikke navn, e-post, bruker-ID eller individuelle stemmer. Vi bruker ikke formuleringer som «100&nbsp;% anonym» før arkitekturen kan dokumentere et slikt nivå.</p>
           </article>
           <article class="card">
             <h3>Fryste spørsmål</h3>
-            <p>Endring midt i = ny versjon og ny Deep Dive. Ingen stille omskriving.</p>
+            <p>Når spørsmålet åpnes, skal den godkjente versjonen fryses. En vesentlig endring krever ny versjon og ny kontroll.</p>
           </article>
           <article class="card">
-            <h3>Offentlig resultat-snapshot</h3>
-            <p>Hash og tidsstempel etter lukking. Historikk kan ikke overskrives i det stille.</p>
+            <h3>Offentlig resultatvisning</h3>
+            <p>Offentlig resultatvisning er begrenset til lesetilgang og viser aggregat for publiserte sakstilstander — ikke individuelle stemmesedler.</p>
           </article>
           <article class="card">
             <h3>Ærlig representativitet</h3>
-            <p>Vi skiller «de som deltok» fra «hele befolkningen». Interessegrupper får egen deltelling.</p>
+            <p>Vi skiller «de som deltok» fra «hele befolkningen». Interessegrupper kan synliggjøres uten å gi mer stemmevekt.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="verifisert">
+      <div class="wrap">
+        <h2>Verifisert – ikke bare lovet</h2>
+        <p class="section-lead">
+          <strong>Produksjonskontroll utført 24. september 2026.</strong>
+          Etter siste sikkerhetsgjennomgang ble resultatvisningen kontrollert direkte mot den levende databasen.
+        </p>
+        <div class="card">
+          <p style="margin:0 0 0.75rem;color:var(--text);font-weight:600">Det ble verifisert at:</p>
+          <ul class="check-list">
+            <li>Nye innbyggersaker skjuler løpende resultater som standard.</li>
+            <li>Den offentlige resultatvisningen viser bare publiserte sakstilstander.</li>
+            <li>Offentlig resultatvisning er begrenset til lesetilgang.</li>
+            <li>Resultatvisningen inneholder ikke navn, e-post, bruker-ID eller individuelle stemmesedler.</li>
+            <li>Eksisterende sak ble ikke endret av sikkerhetsoppdateringen.</li>
+          </ul>
+          <p style="margin:0.75rem 0 0;color:var(--muted)">
+            Vi skiller mellom hva som er verifisert i produksjon, hva som er designet, og hva som fortsatt er under videre sikkerhetsarbeid.
+          </p>
         </div>
       </div>
     </section>
@@ -420,7 +504,7 @@
           <article class="card">
             <div class="num">Vi lover</div>
             <h3>Metode før mening</h3>
-            <p>Deep Dive påkrevd. Fryst formulering. ID≠ballot. Synlig metode og snapshot etter lukking.</p>
+            <p>Deep Dive påkrevd. Fryst formulering. Synlig metode. Offentlig resultat uten navn, e-post eller individuelle stemmer.</p>
           </article>
           <article class="card">
             <div class="num">Vi lover ikke</div>
@@ -485,6 +569,14 @@
 
   <footer>
     <div class="wrap cols">
+      <div>
+        <strong>Åpen om begrensninger</strong>
+        <p>StemmeApp er under utvikling og sikkerhetsgjennomgang.
+        Vi publiserer ikke sterkere påstander om anonymitet, sikkerhet eller representativitet enn det løsningen kan dokumentere.
+        Oppdages en svakhet, skal den dokumenteres, rettes kontrollert og verifiseres etterpå.</p>
+        <p>Sist teknisk sikkerhetsgjennomgang: 24.09.2026.<br>
+        StemmeApp er et rådgivende medvirkningsverktøy – ikke et offentlig valgsystem.</p>
+      </div>
       <div>
         <strong>StemmeApp.no</strong>
         <p>Teknologi skal hjelpe mennesker å ta beslutninger — ikke kontrollere dem.</p>

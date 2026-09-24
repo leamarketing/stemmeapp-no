@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="StemmeApp Trust Center — hva vi lover, hva vi ikke lover. ID≠ballot, Deep Dive, ikke offisielt valgsystem.">
+  <meta name="description" content="StemmeApp Trust Center — hva vi lover, hva vi ikke lover. adskilte sikkerhetsområder, Deep Dive, ikke offisielt valgsystem.">
   <meta name="theme-color" content="#0b1f1a">
   <meta name="robots" content="index,follow">
   <title>Trust Center · StemmeApp.no</title>
@@ -253,8 +253,8 @@
           <span class="badge">Trust Center</span>
           <h1>Tillit uten «tro oss»</h1>
           <p class="hero-sub">
-            StemmeApp er bygget for <em>etterprøvbarhet</em> — ikke for raskest mulig meningsmåling.
-            Her er det vi lover, og det vi bevisst ikke lover.
+            StemmeApp skal ikke være avhengig av at innbyggeren bare stoler på dem som driver systemet.
+            Vi forsøker å gjøre prosessen synlig: spørsmål, alternativer, kilder, usikkerhet, versjon, deltakelse og resultatberegning.
           </p>
           <p class="notice" role="note">
             <strong>Viktig:</strong> StemmeApp er <em>ikke</em> et offisielt offentlig valgsystem
@@ -272,6 +272,19 @@
       </div>
     </section>
 
+    <section id="verifisert">
+      <div class="wrap">
+        <h2>Verifisert – ikke bare lovet</h2>
+        <p class="section-lead">Produksjonskontroll utført 24. september 2026. Resultatvisningen ble kontrollert direkte mot den levende databasen.</p>
+        <ul style="color:var(--muted)">
+          <li>Nye innbyggersaker skjuler løpende resultater som standard.</li>
+          <li>Offentlig resultatvisning viser publiserte sakstilstander og er begrenset til lesetilgang.</li>
+          <li>Ingen navn, e-post, bruker-ID eller individuelle stemmesedler i offentlig resultatvisning.</li>
+        </ul>
+        <p class="section-lead">Vi skiller mellom hva som er verifisert i produksjon, hva som er designet, og hva som fortsatt er under videre sikkerhetsarbeid.</p>
+      </div>
+    </section>
+
     <section id="lover">
       <div class="wrap">
         <h2>Hva vi lover</h2>
@@ -286,7 +299,7 @@
             <p>Når en sak åpnes, er formuleringen fryst. Endring = ny versjon. Innhold kan hashes.</p>
           </article>
           <article class="card">
-            <h3>ID ≠ ballot</h3>
+            <h3>adskilte sikkerhetsområder</h3>
             <p>Identitet brukes for å stoppe dobbeltstemming. Den anonyme stemmeseddelen
                holdes adskilt fra personopplysninger i produktdesignet.</p>
           </article>
@@ -348,6 +361,7 @@
         <p><a href="mailto:geiramdal@gmail.com?subject=StemmeApp%20Tillit">geiramdal@gmail.com</a></p>
       </div>
     </div>
+  <p style="margin-top:1rem;color:var(--muted);font-size:0.9rem">Sist teknisk sikkerhetsgjennomgang: 24.09.2026. StemmeApp er et rådgivende medvirkningsverktøy – ikke et offentlig valgsystem.</p>
   </footer>
 </body>
 </html>
