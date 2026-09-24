@@ -9,6 +9,7 @@ Lett HTML uten eksterne CSS/JS-bibliotek. Egnet for høy trafikk via GitHub Page
 | `index.html` | Landing: produkt, geografi, Deep Dive, tillit, Nordreisa-pilot |
 | `trust.html` | Trust Center — hva vi lover / ikke lover |
 | `deep-dive-eksempel.html` | Illustrerende Deep Dive-case (Sandnes Fjord Camping / Nordreisa) |
+| `tilbakemelding.html` | Skjema for feil, forslag og andre funn |
 
 ## Innhold
 
@@ -37,6 +38,10 @@ Lett HTML uten eksterne CSS/JS-bibliotek. Egnet for høy trafikk via GitHub Page
       nordreisa/
         ...
 ```
+
+## Tilbakemelding
+
+`tilbakemelding.html` sender JSON med `POST` til `https://voteapp.eu/api/feedback`. Siden har ingen API-nøkkel. Endepunktet (CORS fra stemmeapp.no) ligger i app-repoet. Hvis kallet feiler, er `mailto:admin@voteapp.eu` synlig på siden.
 
 ## Merknad
 
