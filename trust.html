@@ -206,6 +206,25 @@
     .rules h3 { margin: 0 0 0.5rem; }
     .rules ul { margin: 0; padding-left: 1.15rem; color: var(--muted); }
     .rules li { margin-bottom: 0.35rem; }
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: clamp(1.25rem, 3vw, 2.4rem);
+      align-items: center;
+    }
+    .hero-media { margin: 0; }
+    .hero-media img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+    }
+    @media (max-width: 820px) {
+      .hero-layout { grid-template-columns: 1fr; }
+    }
 
   </style>
 </head>
@@ -226,17 +245,27 @@
 
   <main>
     <section class="hero">
-      <div class="wrap">
-        <span class="badge">Trust Center</span>
-        <h1>Tillit uten «tro oss»</h1>
-        <p class="hero-sub">
-          StemmeApp er bygget for <em>etterprøvbarhet</em> — ikke for raskest mulig meningsmåling.
-          Her er det vi lover, og det vi bevisst ikke lover.
-        </p>
-        <p class="notice" role="note">
-          <strong>Viktig:</strong> StemmeApp er <em>ikke</em> et offisielt offentlig valgsystem
-          og erstatter ikke kommune-, fylkes- eller stortingsvalg.
-        </p>
+      <div class="wrap hero-layout">
+        <div class="hero-copy">
+          <span class="badge">Trust Center</span>
+          <h1>Tillit uten «tro oss»</h1>
+          <p class="hero-sub">
+            StemmeApp er bygget for <em>etterprøvbarhet</em> — ikke for raskest mulig meningsmåling.
+            Her er det vi lover, og det vi bevisst ikke lover.
+          </p>
+          <p class="notice" role="note">
+            <strong>Viktig:</strong> StemmeApp er <em>ikke</em> et offisielt offentlig valgsystem
+            og erstatter ikke kommune-, fylkes- eller stortingsvalg.
+          </p>
+        </div>
+        <figure class="hero-media">
+          <img
+            src="images/section-tillit.png"
+            alt="To personer med identitet og stemmeseddel holdt adskilt — tillit som kan kontrolleres, ikke bare loves."
+            width="1280"
+            height="720"
+            decoding="async">
+        </figure>
       </div>
     </section>
 
