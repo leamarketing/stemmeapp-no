@@ -73,9 +73,15 @@
       border: 2px solid var(--accent); display: block;
     }
 
-    .brand-logo {
-      width: 36px; height: 36px; object-fit: contain; border-radius: 9px;
-      display: block; flex: 0 0 auto;
+    .brand-lockup {
+      display: block;
+      width: auto;
+      height: 46px;
+      max-width: 235px;
+      object-fit: contain;
+    }
+    @media (max-width: 520px) {
+      .brand-lockup { height: 38px; max-width: 195px; }
     }
     .nav-links { display: flex; gap: 0.85rem; flex-wrap: wrap; font-size: 0.92rem; }
     .nav-links a { color: var(--muted); text-decoration: none; }
@@ -240,10 +246,9 @@
   <header>
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="StemmeApp forsiden">
-        <img class="brand-logo" src="/favicon.png" alt="" width="36" height="36">
-        <span>StemmeApp.no</span>
+        <img class="brand-lockup" src="https://voteapp.eu/brand/logo-stemmeapp-lockup.png" alt="StemmeApp" width="491" height="160">
       </a>
-            <nav class="nav-links" aria-label="Hovedmeny">
+      <nav class="nav-links" aria-label="Hovedmeny">
         <a href="#top">Forside</a>
         <a href="#aktive-saker">Aktive saker</a>
         <a href="#hvordan">Hvordan det virker</a>
@@ -259,7 +264,7 @@
   <main id="top">
     <section class="hero">
       <div class="wrap hero-layout">
-                <div class="hero-copy">
+        <div class="hero-copy">
           <span class="badge">Rådgivende · Åpent · Etterprøvbart</span>
           <h1>Forstå saken før du tar stilling</h1>
           <p class="lead">
@@ -300,7 +305,6 @@
       </div>
     </section>
 
-
     <section id="aktive-saker">
       <div class="wrap">
         <h2>Aktive saker</h2>
@@ -329,7 +333,7 @@
       </div>
     </section>
 
-        <section id="hvordan">
+    <section id="hvordan">
       <div class="wrap">
         <h2>Én prosess – tre deler</h2>
         <p class="section-lead">
@@ -452,7 +456,7 @@
       </div>
     </section>
 
-        <section id="tillit">
+    <section id="tillit">
       <div class="wrap">
         <h2>Tillit uten «tro oss»</h2>
         <p class="section-lead">
@@ -500,7 +504,6 @@
         </div>
       </div>
     </section>
-
 
     <section id="verifisert">
       <div class="wrap">
