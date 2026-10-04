@@ -59,7 +59,7 @@
       gap: 1rem; padding: 0.85rem 0; flex-wrap: wrap;
     }
     .brand {
-      display: flex; align-items: center; gap: 0.7rem;
+      display: flex; align-items: center; gap: 0;
       color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 0.02em;
     }
     .logo {
@@ -73,15 +73,19 @@
       border: 2px solid var(--accent); display: block;
     }
 
-    .brand-lockup {
+    .brand-logo {
       display: block;
-      width: auto;
-      height: 46px;
-      max-width: 235px;
+      width: 40px;
+      height: 40px;
       object-fit: contain;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 4px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+      flex: 0 0 auto;
     }
     @media (max-width: 520px) {
-      .brand-lockup { height: 38px; max-width: 195px; }
+      .brand-logo { width: 38px; height: 38px; }
     }
     .nav-links { display: flex; gap: 0.85rem; flex-wrap: wrap; font-size: 0.92rem; }
     .nav-links a { color: var(--muted); text-decoration: none; }
@@ -246,7 +250,7 @@
   <header>
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="StemmeApp forsiden">
-        <img class="brand-lockup" src="https://voteapp.eu/brand/logo-stemmeapp-lockup.png" alt="StemmeApp" width="491" height="160">
+        <img class="brand-logo" src="/favicon.png" alt="" width="40" height="40">
       </a>
       <nav class="nav-links" aria-label="Hovedmeny">
         <a href="#top">Forside</a>
