@@ -36,6 +36,11 @@ function geography(issue) {
   return [issue.municipalityName, issue.countyName].filter(Boolean).join(", ") || "Geografi ikke oppgitt";
 }
 
+function participationLabel(value) {
+  const count = Number(value) || 0;
+  return count === 1 ? "1 deltaker" : `${count} deltakere`;
+}
+
 function textFrom(value) {
   if (value == null) return "";
   if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") return String(value);
@@ -107,7 +112,6 @@ function pageHtml(issue) {
   const voteUrl = safeUrl(issue.voteUrl) || `https://voteapp.eu/saker/${encodeURIComponent(issue.slug)}`;
   const note = card.questionNote || card.question_note || "";
   const statusLabel = issue.closed || issue.status === "closed" ? "Lukket" : "Åpen for innspill";
-  const description = issue.description || "";
 
   const cards = [
     renderCard("Hvem kan beslutte?", card.whoDecides || card.who_decides),
@@ -139,19 +143,18 @@ function pageHtml(issue) {
   <title>${esc(issue.title)} — StemmeApp.no</title>
 </head>
 <body>
-<header><div class="wrap nav"><a class="brand" href="/"><img src="/favicon.png" alt=""><span>StemmeApp.no</span></a><a href="/">Alle saker</a></div></header>
+<header><div class="wrap nav"><a class="brand" href="/"><img src="/favicon.png" alt=""><span>StemmeApp.no</span></a><a href="/saker/">Alle saker</a></div></header>
 <main>
   <section class="hero"><div class="wrap">
-    <div class="breadcrumbs"><a href="/">Forside</a> / Sak / ${esc(issue.title)}</div>
+    <div class="breadcrumbs"><a href="/">Forside</a> / <a href="/saker/">Saker</a> / ${esc(issue.title)}</div>
     <div class="case-grid">
       <div>
         <span class="badge">${esc(statusLabel)}</span>
         <h1 class="question">${esc(issue.question)}</h1>
-        ${description ? `<p class="lead">${esc(description)}</p>` : ""}
         ${note ? `<div class="card notice"><strong>Merknad til ordlyden</strong><p>${esc(note)}</p></div>` : ""}
         <div class="meta">
           <span>${esc(geography(issue))}</span>
-          <span>${esc(issue.participationCount || 0)} deltakere</span>
+          <span>${esc(participationLabel(issue.participationCount))}</span>
           ${issue.deadline ? `<span>Frist ${esc(fmtDate(issue.deadline))}</span>` : ""}
           ${sourceCount ? `<span>${esc(sourceCount)} journalførte kilder</span>` : ""}
         </div>
@@ -176,6 +179,54 @@ function pageHtml(issue) {
   <section><div class="wrap"><div class="card"><div class="label">Sporbarhet</div><h2>Publisert Deep Dive-versjon</h2><p class="deep-meta">Versjon: ${esc(issue.deepDive?.version || "—")}<br>Fryst: ${esc(fmtDate(issue.deepDive?.frozenAt))}<br>Hash: ${esc(issue.deepDive?.contentHash || "—")}</p>${issue.deepDive?.aiDisclosure ? `<p>${esc(issue.deepDive.aiDisclosure)}</p>` : ""}</div></div></section>
 </main>
 <footer><div class="wrap"><p><strong>StemmeApp.no</strong> · Rådgivende innbyggerdeltakelse. Ikke et offentlig valgsystem.</p><p>Siden oppdateres automatisk fra den publiserte saken i VoteApp. Sist generert ${esc(new Date().toISOString())}.</p></div></footer>
+</body></html>`;
+}
+
+function casesIndexHtml(issues) {
+  const canonical = "https://stemmeapp.no/saker/";
+  const openCount = issues.filter((issue) => issue.status === "open" && !issue.closed).length;
+  const cards = issues.map((issue) => {
+    const hero = safeUrl(issue.heroSrc);
+    const statusLabel = issue.closed || issue.status === "closed" ? "Lukket" : "Åpen for innspill";
+    const pageUrl = `/saker/${encodeURIComponent(issue.slug)}/`;
+    return `<article class="card" style="padding:0;overflow:hidden">
+      ${hero ? `<a href="${pageUrl}" style="display:block"><img src="${esc(hero)}" alt="${esc(issue.heroAlt || issue.title)}" width="1280" height="720" loading="lazy" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover"></a>` : ""}
+      <div style="padding:1.15rem">
+        <div class="meta" style="margin-top:0"><span>${esc(statusLabel)}</span><span>${esc(geography(issue))}</span></div>
+        <h2 style="font-size:1.25rem"><a href="${pageUrl}" style="color:var(--text);text-decoration:none">${esc(issue.question)}</a></h2>
+        <p style="color:var(--muted)">${esc(participationLabel(issue.participationCount))}${issue.deadline ? ` · frist ${esc(fmtDate(issue.deadline))}` : ""}</p>
+        <div class="cta"><a class="btn btn-secondary" href="${pageUrl}">Forstå saken</a></div>
+      </div>
+    </article>`;
+  }).join("");
+
+  return `<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Publiserte saker i StemmeApp — spørsmål, kunnskapsgrunnlag, kilder og lenke til deltagelse.">
+  <meta property="og:title" content="Saker — StemmeApp.no">
+  <meta property="og:description" content="Forstå spørsmålene, se Deep Dive og følg sakene videre.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${canonical}">
+  <link rel="canonical" href="${canonical}">
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="/saker/sak.css">
+  <title>Saker — StemmeApp.no</title>
+</head>
+<body>
+<header><div class="wrap nav"><a class="brand" href="/"><img src="/favicon.png" alt=""><span>StemmeApp.no</span></a><a href="https://voteapp.eu">Åpne VoteApp</a></div></header>
+<main>
+  <section class="hero"><div class="wrap">
+    <div class="breadcrumbs"><a href="/">Forside</a> / Saker</div>
+    <span class="badge">${openCount} åpne saker</span>
+    <h1 class="question">Dette skjer nå</h1>
+    <p class="lead">Her samles publiserte spørsmål automatisk. Hver sak har sin egen side med bilde, status, Deep Dive, kildegrunnlag og lenke til deltagelse i VoteApp.</p>
+  </div></section>
+  <section><div class="wrap"><div class="grid">${cards}</div></div></section>
+</main>
+<footer><div class="wrap"><p><strong>StemmeApp.no</strong> · Rådgivende innbyggerdeltakelse. Ikke et offentlig valgsystem.</p><p>Saksoversikten oppdateres automatisk fra publiserte VoteApp-saker.</p></div></footer>
 </body></html>`;
 }
 
@@ -214,13 +265,14 @@ async function main() {
     await fs.writeFile(path.join(dir, "index.html"), pageHtml(issue), "utf8");
   }
 
+  await fs.writeFile(path.join(CASES_DIR, "index.html"), casesIndexHtml(details), "utf8");
+
   const publicIndex = {
     generatedAt: new Date().toISOString(),
     issues: details.map((issue) => ({
       slug: issue.slug,
       title: issue.title,
       question: issue.question,
-      description: issue.description,
       status: issue.status,
       deadline: issue.deadline,
       geoLevel: issue.geoLevel,
@@ -236,7 +288,7 @@ async function main() {
   };
   await fs.writeFile(path.join(DATA_DIR, "issues.json"), JSON.stringify(publicIndex, null, 2) + "\n", "utf8");
 
-  const urls = ["https://stemmeapp.no/", "https://stemmeapp.no/trust.html", ...details.map((issue) => `https://stemmeapp.no/saker/${encodeURIComponent(issue.slug)}/`)];
+  const urls = ["https://stemmeapp.no/", "https://stemmeapp.no/saker/", "https://stemmeapp.no/trust.html", ...details.map((issue) => `https://stemmeapp.no/saker/${encodeURIComponent(issue.slug)}/`)];
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${esc(url)}</loc></url>`).join("\n")}\n</urlset>\n`;
   await fs.writeFile(path.join(ROOT, "sitemap.xml"), sitemap, "utf8");
 
