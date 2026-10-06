@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T21:51:12.909Z",
+  "generatedAt": "2026-10-06T22:17:57.532Z",
   "issues": [
     {
       "slug": "burde-det-vaere-gratis-mat-til-alle-barneskoler-nat-2026-0002",
@@ -265,6 +265,63 @@
       "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/kvikksolvubaten-nat-2026-0014/",
       "voteUrl": "https://voteapp.eu/saker/kvikksolvubaten-nat-2026-0014"
+    },
+    {
+      "slug": "e-134-nat-2026-0015",
+      "title": "E 134",
+      "question": "Skal ny e 134 med 4 sidearmer bygges ?",
+      "status": "open",
+      "deadline": "2027-01-04T21:57:04.142+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "samferdsel"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/e-134-nat-2026-0015/hero-2533c74b5365f5eb.webp",
+      "heroAlt": "E 134",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/e-134-nat-2026-0015/",
+      "voteUrl": "https://voteapp.eu/saker/e-134-nat-2026-0015"
+    },
+    {
+      "slug": "rorveier-nat-2026-0016",
+      "title": "Rørveier",
+      "question": "Skal vi utrede å bygge et nasjonalt ekspressveinett av toetasjes stålbetongrør ?",
+      "status": "open",
+      "deadline": "2027-01-04T21:57:54.331+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "samferdsel"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/rorveier-nat-2026-0016/hero-daff5ba3d7d682f3.webp",
+      "heroAlt": "Rørveier",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/rorveier-nat-2026-0016/",
+      "voteUrl": "https://voteapp.eu/saker/rorveier-nat-2026-0016"
+    },
+    {
+      "slug": "ny-rett-e-18-nat-2026-0017",
+      "title": "Ny rett e 18",
+      "question": "Skal vi bygge ny rett e 18 for å korte kjøretida mellom sør og østlandet med ca en halvtime ?",
+      "status": "open",
+      "deadline": "2027-01-04T21:59:17.202+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "samferdsel"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/ny-rett-e-18-nat-2026-0017/hero-4b8d2b2a8b6ea23b.webp",
+      "heroAlt": "Ny rett e 18",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/ny-rett-e-18-nat-2026-0017/",
+      "voteUrl": "https://voteapp.eu/saker/ny-rett-e-18-nat-2026-0017"
     }
   ]
 }
