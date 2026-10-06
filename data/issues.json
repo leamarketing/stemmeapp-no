@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T11:31:14.455Z",
+  "generatedAt": "2026-10-06T11:50:40.742Z",
   "issues": [
     {
       "slug": "burde-det-vaere-gratis-mat-til-alle-barneskoler-nat-2026-0002",
@@ -20,6 +20,7 @@
       ],
       "heroSrc": "https://cdn.nyverden.no/Photo/Mat%20i%20Barneskolen%201.webp",
       "heroAlt": "Burde det være gratis mat til alle barneskoler?",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/burde-det-vaere-gratis-mat-til-alle-barneskoler-nat-2026-0002/",
       "voteUrl": "https://voteapp.eu/saker/burde-det-vaere-gratis-mat-til-alle-barneskoler-nat-2026-0002"
     },
@@ -38,6 +39,7 @@
       ],
       "heroSrc": "https://cdn.nyverden.no/Photo/panoramavei_gjennom_fjordlandskap.webp",
       "heroAlt": "Ekspressveier",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/ekspressveier-nat-2026-0004/",
       "voteUrl": "https://voteapp.eu/saker/ekspressveier-nat-2026-0004"
     },
@@ -64,6 +66,7 @@
       ],
       "heroSrc": "https://cdn.nyverden.no/Photo/fjordutsikt_med_fellesskap_og_teknologi.webp",
       "heroAlt": "Innbyggernes Stemme Mellom Valgene",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/innbyggernes-stemme-mellom-valgene-nor-2026-0004/",
       "voteUrl": "https://voteapp.eu/saker/innbyggernes-stemme-mellom-valgene-nor-2026-0004"
     },
@@ -80,6 +83,7 @@
       "interestTags": [],
       "heroSrc": "https://cdn.nyverden.no/Photo/gullmynter_ved_nordisk_fjord_solnedgang.webp",
       "heroAlt": "Edelmetallmynt ?",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/edelmetallmynt-nat-2026-0007/",
       "voteUrl": "https://voteapp.eu/saker/edelmetallmynt-nat-2026-0007"
     },
@@ -99,6 +103,7 @@
       ],
       "heroSrc": "https://cdn.nyverden.no/Photo/nordisk_fjord_med_energianlegg_ved_solnedgang.webp",
       "heroAlt": "Gassrør - skanled",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/gassror-skanled-nat-2026-0008/",
       "voteUrl": "https://voteapp.eu/saker/gassror-skanled-nat-2026-0008"
     },
@@ -117,6 +122,7 @@
       ],
       "heroSrc": "https://cdn.nyverden.no/Photo/samarbeid_i_fjordklasserommet.webp",
       "heroAlt": "Nye skolefag",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/nye-skolefag-nat-2026-0006/",
       "voteUrl": "https://voteapp.eu/saker/nye-skolefag-nat-2026-0006"
     },
@@ -135,6 +141,7 @@
       ],
       "heroSrc": "https://cdn.nyverden.no/Photo/en_stemme_ved_fjorden.webp",
       "heroAlt": "Direktevalg av samfunnsledere",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/direktevalg-av-samfunnsledere-nat-2026-0009/",
       "voteUrl": "https://voteapp.eu/saker/direktevalg-av-samfunnsledere-nat-2026-0009"
     },
@@ -153,6 +160,7 @@
       ],
       "heroSrc": "https://cdn.nyverden.no/Photo/nordisk_fjordvei_ved_solnedgang.webp",
       "heroAlt": "Bompenger",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/bompenger-nat-2026-0005/",
       "voteUrl": "https://voteapp.eu/saker/bompenger-nat-2026-0005"
     },
@@ -172,6 +180,7 @@
       ],
       "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/vindkraft-nat-2026-0010/hero-eafc98728f7f8825.webp",
       "heroAlt": "Vindkraft",
+      "formalParticipationCount": 3,
       "pageUrl": "https://stemmeapp.no/saker/vindkraft-nat-2026-0010/",
       "voteUrl": "https://voteapp.eu/saker/vindkraft-nat-2026-0010"
     },
@@ -190,6 +199,7 @@
       ],
       "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/boter-nat-2026-0011/hero-6a7546d6fdd3c326.webp",
       "heroAlt": "Bøter",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/boter-nat-2026-0011/",
       "voteUrl": "https://voteapp.eu/saker/boter-nat-2026-0011"
     },
@@ -208,6 +218,7 @@
       ],
       "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/felles-registrering-og-forsikring-nat-2026-0012/hero-c548b592556c3210.webp",
       "heroAlt": "Felles registrering og forsikring",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/felles-registrering-og-forsikring-nat-2026-0012/",
       "voteUrl": "https://voteapp.eu/saker/felles-registrering-og-forsikring-nat-2026-0012"
     },
@@ -230,6 +241,7 @@
       ],
       "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/nytt-fm-nett-nat-2026-0013/hero-6dff7fa79a7be039.webp",
       "heroAlt": "Nytt Fm nett.",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/nytt-fm-nett-nat-2026-0013/",
       "voteUrl": "https://voteapp.eu/saker/nytt-fm-nett-nat-2026-0013"
     },
@@ -250,6 +262,7 @@
       ],
       "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/kvikksolvubaten-nat-2026-0014/hero-93614023b1aef303.webp",
       "heroAlt": "Kvikksølvubåten",
+      "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/kvikksolvubaten-nat-2026-0014/",
       "voteUrl": "https://voteapp.eu/saker/kvikksolvubaten-nat-2026-0014"
     }
