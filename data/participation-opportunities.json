@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-06",
+  "principle": "StemmeApp distinguishes advisory voting from formal public participation. A listed hearing or consultation is an external official channel and does not mean that the StemmeApp question itself is formally under hearing.",
+  "issues": {
+    "vindkraft-nat-2026-0010": {
+      "intro": "Det finnes ikke én nasjonal NVE-høring om StemmeApps spørsmål om stans i nye landbaserte vindkraftutbygginger. Det finnes derimot konkrete vindkraftsaker der innbyggere kan sende formelle høringsuttalelser. Disse inngangene vises separat fra avstemningen i VoteApp.",
+      "opportunities": [
+        {
+          "title": "Finn aktuelle konsesjonssaker på høring hos NVE",
+          "authority": "Norges vassdrags- og energidirektorat (NVE)",
+          "stage": "Offisiell konsesjonsoversikt",
+          "scope": "Hele Norge",
+          "url": "https://www.nve.no/konsesjon/konsesjonssaker",
+          "actionLabel": "Se saker på høring hos NVE",
+          "relevance": "NVEs oversikt kan filtreres på blant annet status, sakstype, fylke, kommune og høringsfrist. Bruk den til å finne konkrete vindkraftsaker der formelle innspill kan sendes.",
+          "sourceType": "official"
+        },
+        {
+          "title": "Granåsen vindkraftverk",
+          "authority": "Norges vassdrags- og energidirektorat (NVE)",
+          "stage": "Høring – melding og forslag til plan- og utredningsprogram",
+          "scope": "Trysil, Innlandet",
+          "deadline": "2026-11-06",
+          "url": "https://www.nve.no/konsesjon/konsesjonssaker/konsesjonssak?id=26175&type=A-6",
+          "actionLabel": "Åpne høringen hos NVE",
+          "relevance": "NVE ber blant annet om innspill om mangler i den foreløpige konsekvensbeskrivelsen, lokale forhold som ikke er ivaretatt, tema som mangler og metoder som bør brukes i videre utredning.",
+          "sourceType": "official"
+        },
+        {
+          "title": "Borveggen vindkraftverk",
+          "authority": "Norges vassdrags- og energidirektorat (NVE)",
+          "stage": "Høring – melding og forslag til plan- og utredningsprogram",
+          "scope": "Trysil, Innlandet",
+          "deadline": "2026-11-06",
+          "url": "https://www.nve.no/konsesjon/konsesjonssaker/konsesjonssak?id=26174&type=A-6",
+          "actionLabel": "Åpne høringen hos NVE",
+          "relevance": "NVE ber blant annet om innspill om mangler i den foreløpige konsekvensbeskrivelsen, lokale forhold som ikke er ivaretatt, tema som mangler og metoder som bør brukes i videre utredning.",
+          "sourceType": "official"
+        }
+      ]
+    }
+  }
+}
