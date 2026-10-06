@@ -36,6 +36,80 @@
     document.head.appendChild(style);
   }
 
+  function ensureProcessFlowStyles() {
+    if (document.getElementById('process-flow-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'process-flow-styles';
+    style.textContent = `
+      #hvordan .process-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.7rem;margin:1.35rem 0 1.1rem}
+      #hvordan .process-step{position:relative;padding:1rem .85rem;border:1px solid rgba(125,255,179,.18);border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.035),transparent),#16332a;min-height:160px}
+      #hvordan .process-step:not(:last-child)::after{content:'→';position:absolute;right:-.58rem;top:50%;transform:translateY(-50%);z-index:2;color:#7dffb3;font-weight:800;font-size:1.05rem}
+      #hvordan .process-step-num{display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:rgba(125,255,179,.12);color:#7dffb3;font-weight:800;font-size:.85rem;margin-bottom:.7rem}
+      #hvordan .process-step h3{margin:0 0 .4rem;font-size:1rem;color:#e8f6ef}
+      #hvordan .process-step p{margin:0;color:#9bb8ab;font-size:.88rem;line-height:1.45}
+      #hvordan .process-note{margin:1rem 0 0;padding:1rem 1.1rem;border-radius:16px;border:1px solid rgba(94,200,255,.25);background:rgba(94,200,255,.06);color:#cfefff;font-size:.93rem}
+      @media(max-width:900px){#hvordan .process-flow{grid-template-columns:1fr 1fr}#hvordan .process-step:not(:last-child)::after{display:none}}
+      @media(max-width:560px){#hvordan .process-flow{grid-template-columns:1fr}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function upgradeProcessSection() {
+    const section = document.getElementById('hvordan');
+    if (!section || section.dataset.processFlowVersion === '5') return;
+
+    const heading = section.querySelector('h2');
+    if (heading) heading.textContent = 'Én sammenhengende prosess – fra forslag til resultat';
+
+    const lead = section.querySelector('.section-lead');
+    if (lead) {
+      lead.textContent = 'StemmeApp binder hele saksgangen sammen: en innbygger kan løfte en sak, forstå kunnskapsgrunnlaget, delta i VoteApp, se resultatet og senere kontrollere hvordan saken og kildene ble behandlet.';
+    }
+
+    const oldFigure = section.querySelector('.media-slot--hvordan');
+    if (oldFigure) oldFigure.remove();
+
+    const oldGrid = section.querySelector('.grid');
+    if (oldGrid) {
+      ensureProcessFlowStyles();
+      const flow = document.createElement('div');
+      flow.className = 'process-flow';
+      flow.setAttribute('aria-label', 'StemmeApp-prosessen i fem trinn');
+
+      const steps = [
+        ['1', 'Foreslå', 'Innbyggeren løfter en sak eller et spørsmål som engasjerer. Innsenderen eier spørsmålet; StemmeApp kvalitetssikrer kunnskapsgrunnlaget.'],
+        ['2', 'Forstå', 'StemmeApp.no viser det eksakte spørsmålet, relevante kilder, motargumenter, interesser, usikkerhet og hva som fortsatt ikke er dokumentert.'],
+        ['3', 'Delta', 'Når saken er godkjent og åpnet, er VoteApp deltagelseskanalen. Her avgir kvalifiserte deltagere sitt rådgivende svar.'],
+        ['4', 'Se resultat', 'Etter avslutning vises det aggregerte resultatet uten navn, e-post eller individuelle stemmesedler, sammen med hvilken sak og versjon det gjelder.'],
+        ['5', 'Tillit', 'Kilder, godkjenninger, versjon og sporbarhet skal gjøre det mulig å etterprøve prosessen – også når det finnes uenighet eller kunnskapshull.']
+      ];
+
+      steps.forEach(([number, title, text]) => {
+        const article = document.createElement('article');
+        article.className = 'process-step';
+        const num = document.createElement('div');
+        num.className = 'process-step-num';
+        num.textContent = number;
+        const h3 = document.createElement('h3');
+        h3.textContent = title;
+        const p = document.createElement('p');
+        p.textContent = text;
+        article.append(num, h3, p);
+        flow.appendChild(article);
+      });
+
+      oldGrid.replaceWith(flow);
+    }
+
+    const trailingLead = Array.from(section.querySelectorAll('.section-lead')).find((node) => node !== lead);
+    if (trailingLead) {
+      trailingLead.className = 'process-note';
+      trailingLead.textContent = 'Deep Dive er kvalitetssikringen som ligger inne i «Forstå» og «Tillit»: den undersøker blant annet jurisdiksjon, kilder, kontradiksjon, språk, svaralternativer og usikkerhet før en sak åpnes. AI kan hjelpe med analyse og kildearbeid, men skal ikke anbefale hvilket politisk alternativ en innbygger bør velge.';
+    }
+
+    section.dataset.processFlowVersion = '5';
+  }
+
   function recentMenuHost() {
     return document.querySelector('.nav-links') ||
       document.querySelector('header .links') ||
@@ -136,6 +210,7 @@
   async function init() {
     addForumNavigation();
     addCaseForumButton();
+    upgradeProcessSection();
     applyExternalTargets();
     await addRecentCasesMenu();
     applyExternalTargets();
