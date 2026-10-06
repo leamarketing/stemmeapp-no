@@ -5,6 +5,7 @@ const API_BASE = process.env.VOTEAPP_PUBLIC_API || "https://voteapp.eu/api/publi
 const ROOT = process.cwd();
 const CASES_DIR = path.join(ROOT, "saker");
 const DATA_DIR = path.join(ROOT, "data");
+const PARTICIPATION_PATH = path.join(DATA_DIR, "participation-opportunities.json");
 
 function esc(value) {
   return String(value ?? "")
@@ -39,6 +40,49 @@ function geography(issue) {
 function participationLabel(value) {
   const count = Number(value) || 0;
   return count === 1 ? "1 deltaker" : `${count} deltakere`;
+}
+
+function opportunityIsActive(opportunity) {
+  if (!opportunity?.deadline) return true;
+  const deadline = new Date(`${opportunity.deadline}T23:59:59Z`);
+  return Number.isNaN(deadline.getTime()) || deadline >= new Date();
+}
+
+function activeOpportunities(entry) {
+  const opportunities = Array.isArray(entry?.opportunities) ? entry.opportunities : [];
+  return opportunities.filter(opportunityIsActive);
+}
+
+function renderParticipationSection(entry, checkedAt) {
+  const opportunities = activeOpportunities(entry);
+  if (!entry || !opportunities.length) return "";
+
+  const cards = opportunities.map((opportunity) => {
+    const url = safeUrl(opportunity.url);
+    const deadline = opportunity.deadline ? `<span>Frist ${esc(fmtDate(opportunity.deadline))}</span>` : "";
+    return `<article class="card">
+      <div class="label">${esc(opportunity.stage || "Offisiell medvirkning")}</div>
+      <h3>${esc(opportunity.title)}</h3>
+      <div class="meta" style="margin-top:.65rem">
+        ${opportunity.authority ? `<span>${esc(opportunity.authority)}</span>` : ""}
+        ${opportunity.scope ? `<span>${esc(opportunity.scope)}</span>` : ""}
+        ${deadline}
+      </div>
+      ${opportunity.relevance ? `<p>${esc(opportunity.relevance)}</p>` : ""}
+      ${url ? `<div class="cta"><a class="btn btn-primary" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(opportunity.actionLabel || "Åpne offisiell side")}</a></div>` : ""}
+    </article>`;
+  }).join("");
+
+  return `<section id="paavirk"><div class="wrap">
+    <div class="card notice">
+      <div class="label">Formell medvirkning</div>
+      <h2>Her kan du påvirke saken nå</h2>
+      <p>${esc(entry.intro || "Her vises dokumenterte offentlige kanaler der innbyggere kan sende formelle innspill eller følge behandlingen av saken.")}</p>
+      <p><strong>Viktig:</strong> Dette er separate offentlige prosesser. Å stemme i VoteApp sender ikke automatisk en høringsuttalelse, søknad, klage eller annet formelt innspill.</p>
+      ${checkedAt ? `<p class="deep-meta">Kontrollert mot offentlige kilder: ${esc(fmtDate(checkedAt))}.</p>` : ""}
+    </div>
+    <div class="grid" style="margin-top:1rem">${cards}</div>
+  </div></section>`;
 }
 
 function textFrom(value) {
@@ -103,7 +147,7 @@ function renderSources(card) {
   }).join("")}</div>`;
 }
 
-function pageHtml(issue) {
+function pageHtml(issue, participationEntry, participationCheckedAt) {
   const card = issue.deepDive?.knowledgeCard || {};
   const sources = collectSources(card);
   const sourceCount = sources.length || card.sourceCount || card.source_count || 0;
@@ -112,6 +156,7 @@ function pageHtml(issue) {
   const voteUrl = safeUrl(issue.voteUrl) || `https://voteapp.eu/saker/${encodeURIComponent(issue.slug)}`;
   const note = card.questionNote || card.question_note || "";
   const statusLabel = issue.closed || issue.status === "closed" ? "Lukket" : "Åpen for innspill";
+  const participationSection = renderParticipationSection(participationEntry, participationCheckedAt);
 
   const cards = [
     renderCard("Hvem kan beslutte?", card.whoDecides || card.who_decides),
@@ -157,8 +202,9 @@ function pageHtml(issue) {
           <span>${esc(participationLabel(issue.participationCount))}</span>
           ${issue.deadline ? `<span>Frist ${esc(fmtDate(issue.deadline))}</span>` : ""}
           ${sourceCount ? `<span>${esc(sourceCount)} journalførte kilder</span>` : ""}
+          ${activeOpportunities(participationEntry).length ? `<span>${esc(activeOpportunities(participationEntry).length)} formelle påvirkningsinnganger</span>` : ""}
         </div>
-        <div class="cta"><a class="btn btn-primary" href="${esc(voteUrl)}">Åpne saken i VoteApp</a><a class="btn btn-secondary" href="#kunnskap">Se kunnskapsgrunnlaget</a></div>
+        <div class="cta"><a class="btn btn-primary" href="${esc(voteUrl)}">Åpne saken i VoteApp</a><a class="btn btn-secondary" href="#kunnskap">Se kunnskapsgrunnlaget</a>${activeOpportunities(participationEntry).length ? `<a class="btn btn-secondary" href="#paavirk">Påvirk saken formelt</a>` : ""}</div>
       </div>
       ${hero ? `<figure class="hero-media"><img src="${esc(hero)}" alt="${esc(issue.heroAlt || issue.title)}" width="1280" height="720"></figure>` : ""}
     </div>
@@ -168,6 +214,8 @@ function pageHtml(issue) {
     <article class="card"><div class="label">Spørsmålet</div><h2>Innsenderens spørsmål står fast</h2><p>StemmeApp skal forklare dokumenterte svakheter, premisser og usikkerhet uten å overta innsenderens politiske hensikt.</p></article>
     <article class="card"><div class="label">Status</div><h2>${esc(statusLabel)}</h2><p>${esc(geography(issue))}${issue.deadline ? ` · frist ${esc(fmtDate(issue.deadline))}` : ""}.</p></article>
   </div></section>
+
+  ${participationSection}
 
   <section id="kunnskap"><div class="wrap">
     <div class="card"><div class="label">Deep Dive</div><h2>Hva er dokumentert — og hva vet vi fortsatt ikke?</h2><p>Dette er den publiserte kunnskapspakken som følger saken. StemmeApp anbefaler ikke hvilket alternativ du bør velge.</p></div>
@@ -182,17 +230,18 @@ function pageHtml(issue) {
 </body></html>`;
 }
 
-function casesIndexHtml(issues) {
+function casesIndexHtml(issues, participationConfig) {
   const canonical = "https://stemmeapp.no/saker/";
   const openCount = issues.filter((issue) => issue.status === "open" && !issue.closed).length;
   const cards = issues.map((issue) => {
     const hero = safeUrl(issue.heroSrc);
     const statusLabel = issue.closed || issue.status === "closed" ? "Lukket" : "Åpen for innspill";
     const pageUrl = `/saker/${encodeURIComponent(issue.slug)}/`;
+    const opportunityCount = activeOpportunities(participationConfig?.issues?.[issue.slug]).length;
     return `<article class="card" style="padding:0;overflow:hidden">
       ${hero ? `<a href="${pageUrl}" style="display:block"><img src="${esc(hero)}" alt="${esc(issue.heroAlt || issue.title)}" width="1280" height="720" loading="lazy" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover"></a>` : ""}
       <div style="padding:1.15rem">
-        <div class="meta" style="margin-top:0"><span>${esc(statusLabel)}</span><span>${esc(geography(issue))}</span></div>
+        <div class="meta" style="margin-top:0"><span>${esc(statusLabel)}</span><span>${esc(geography(issue))}</span>${opportunityCount ? `<span>${esc(opportunityCount)} påvirkningsinnganger</span>` : ""}</div>
         <h2 style="font-size:1.25rem"><a href="${pageUrl}" style="color:var(--text);text-decoration:none">${esc(issue.question)}</a></h2>
         <p style="color:var(--muted)">${esc(participationLabel(issue.participationCount))}${issue.deadline ? ` · frist ${esc(fmtDate(issue.deadline))}` : ""}</p>
         <div class="cta"><a class="btn btn-secondary" href="${pageUrl}">Forstå saken</a></div>
@@ -222,7 +271,7 @@ function casesIndexHtml(issues) {
     <div class="breadcrumbs"><a href="/">Forside</a> / Saker</div>
     <span class="badge">${openCount} åpne saker</span>
     <h1 class="question">Dette skjer nå</h1>
-    <p class="lead">Her samles publiserte spørsmål automatisk. Hver sak har sin egen side med bilde, status, Deep Dive, kildegrunnlag og lenke til deltagelse i VoteApp.</p>
+    <p class="lead">Her samles publiserte spørsmål automatisk. Hver sak har sin egen side med bilde, status, Deep Dive, kildegrunnlag, formelle påvirkningsmuligheter når de er dokumentert, og lenke til deltagelse i VoteApp.</p>
   </div></section>
   <section><div class="wrap"><div class="grid">${cards}</div></div></section>
 </main>
@@ -234,6 +283,15 @@ async function fetchJson(url) {
   const response = await fetch(url, { headers: { "User-Agent": "stemmeapp-no-case-sync/1.0" } });
   if (!response.ok) throw new Error(`HTTP ${response.status} fra ${url}`);
   return response.json();
+}
+
+async function loadParticipationConfig() {
+  try {
+    return JSON.parse(await fs.readFile(PARTICIPATION_PATH, "utf8"));
+  } catch (error) {
+    if (error?.code === "ENOENT") return { version: 1, issues: {} };
+    throw error;
+  }
 }
 
 async function main() {
@@ -250,6 +308,7 @@ async function main() {
 
   await fs.mkdir(CASES_DIR, { recursive: true });
   await fs.mkdir(DATA_DIR, { recursive: true });
+  const participationConfig = await loadParticipationConfig();
 
   const existing = await fs.readdir(CASES_DIR, { withFileTypes: true });
   const keep = new Set(details.map((issue) => issue.slug));
@@ -262,10 +321,11 @@ async function main() {
   for (const issue of details) {
     const dir = path.join(CASES_DIR, issue.slug);
     await fs.mkdir(dir, { recursive: true });
-    await fs.writeFile(path.join(dir, "index.html"), pageHtml(issue), "utf8");
+    const participationEntry = participationConfig?.issues?.[issue.slug] || null;
+    await fs.writeFile(path.join(dir, "index.html"), pageHtml(issue, participationEntry, participationConfig.checkedAt), "utf8");
   }
 
-  await fs.writeFile(path.join(CASES_DIR, "index.html"), casesIndexHtml(details), "utf8");
+  await fs.writeFile(path.join(CASES_DIR, "index.html"), casesIndexHtml(details, participationConfig), "utf8");
 
   const publicIndex = {
     generatedAt: new Date().toISOString(),
@@ -282,6 +342,7 @@ async function main() {
       interestTags: issue.interestTags,
       heroSrc: issue.heroSrc,
       heroAlt: issue.heroAlt,
+      formalParticipationCount: activeOpportunities(participationConfig?.issues?.[issue.slug]).length,
       pageUrl: `https://stemmeapp.no/saker/${encodeURIComponent(issue.slug)}/`,
       voteUrl: issue.voteUrl
     }))
