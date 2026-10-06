@@ -7,6 +7,8 @@ on:
   push:
     paths:
       - "scripts/sync-cases.mjs"
+      - "scripts/sync-participation.mjs"
+      - "data/participation-opportunities.json"
       - ".github/workflows/sync-voteapp-cases.yml"
 
 permissions:
@@ -31,11 +33,14 @@ jobs:
       - name: Generate case pages
         run: node scripts/sync-cases.mjs
 
+      - name: Generate participation page
+        run: node scripts/sync-participation.mjs
+
       - name: Commit changes
         run: |
           git config user.name "stemmeapp-case-sync"
           git config user.email "actions@users.noreply.github.com"
-          git add saker data sitemap.xml
+          git add saker paavirk data sitemap.xml
           if git diff --cached --quiet; then
             echo "No published-case changes."
             exit 0
