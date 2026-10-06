@@ -42,6 +42,31 @@
       document.querySelector('header .nav');
   }
 
+  function addForumNavigation() {
+    const host = recentMenuHost();
+    if (!host || host.querySelector('a[href="/forum/"],a[href="forum/"]')) return;
+    const link = document.createElement('a');
+    link.href = '/forum/';
+    link.textContent = 'Forum';
+    const voteAppLink = Array.from(host.querySelectorAll('a')).find((a) => {
+      try { return new URL(a.href, window.location.href).hostname === 'voteapp.eu'; } catch { return false; }
+    });
+    if (voteAppLink) host.insertBefore(link, voteAppLink);
+    else host.appendChild(link);
+  }
+
+  function addCaseForumButton() {
+    const match = window.location.pathname.match(/^\/saker\/([^/]+)\/?$/);
+    if (!match) return;
+    const cta = document.querySelector('.hero .cta');
+    if (!cta || cta.querySelector('a[href*="/forum/"]')) return;
+    const link = document.createElement('a');
+    link.href = `/forum/?sak=${encodeURIComponent(decodeURIComponent(match[1]))}`;
+    link.className = 'btn btn-secondary';
+    link.textContent = 'Diskuter saken';
+    cta.appendChild(link);
+  }
+
   function shortGeo(issue) {
     if (issue.geoLevel === 'nation') return 'Hele Norge';
     return issue.municipalityName || issue.countyName || '';
@@ -64,7 +89,6 @@
     const issues = Array.isArray(data?.issues) ? data.issues : [];
     if (!issues.length) return;
 
-    // Feed order follows the published-case stream. Show the newest entries first.
     const recent = issues.slice(-6).reverse();
     ensureRecentCasesStyles();
 
@@ -110,6 +134,8 @@
   }
 
   async function init() {
+    addForumNavigation();
+    addCaseForumButton();
     applyExternalTargets();
     await addRecentCasesMenu();
     applyExternalTargets();
