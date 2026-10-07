@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T14:46:04.586Z",
+  "generatedAt": "2026-10-07T20:14:00.207Z",
   "issues": [
     {
       "slug": "burde-det-vaere-gratis-mat-til-alle-barneskoler-nat-2026-0002",
@@ -322,6 +322,25 @@
       "formalParticipationCount": 0,
       "pageUrl": "https://stemmeapp.no/saker/ny-rett-e-18-nat-2026-0017/",
       "voteUrl": "https://voteapp.eu/saker/ny-rett-e-18-nat-2026-0017"
+    },
+    {
+      "slug": "tannhelse-nat-2026-0018",
+      "title": "Tannhelse",
+      "question": "Skal tannhelse kostnadsberegnes , betales  og behandles som generelle helsesaker ?",
+      "status": "open",
+      "deadline": "2027-01-05T18:57:04.035+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "helse-omsorg"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/tannhelse-nat-2026-0018/hero-590718c56502e85d.webp",
+      "heroAlt": "Tannhelse",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/tannhelse-nat-2026-0018/",
+      "voteUrl": "https://voteapp.eu/saker/tannhelse-nat-2026-0018"
     }
   ]
 }
