@@ -42,6 +42,21 @@
       document.querySelector('header .nav');
   }
 
+  function addHowWeWorkNavigation() {
+    const host = recentMenuHost();
+    if (!host || host.querySelector('a[href="/slik-arbeider-vi/"],a[href="slik-arbeider-vi/"]')) return;
+    const link = document.createElement('a');
+    link.href = '/slik-arbeider-vi/';
+    link.textContent = 'Slik arbeider vi';
+    const trustLink = Array.from(host.querySelectorAll('a')).find((a) => /tillit|trust/i.test((a.textContent || '') + ' ' + (a.getAttribute('href') || '')));
+    const voteAppLink = Array.from(host.querySelectorAll('a')).find((a) => {
+      try { return new URL(a.href, window.location.href).hostname === 'voteapp.eu'; } catch { return false; }
+    });
+    if (trustLink) host.insertBefore(link, trustLink);
+    else if (voteAppLink) host.insertBefore(link, voteAppLink);
+    else host.appendChild(link);
+  }
+
   function addForumNavigation() {
     const host = recentMenuHost();
     if (!host || host.querySelector('a[href="/forum/"],a[href="forum/"]')) return;
@@ -134,6 +149,7 @@
   }
 
   async function init() {
+    addHowWeWorkNavigation();
     addForumNavigation();
     addCaseForumButton();
     applyExternalTargets();

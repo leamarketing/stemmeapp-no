@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Åtte perspektiver rundt ett spørsmål</title>
+  <desc id="desc">Klara, Sofia, Saga, Mira, Liv, Sindre, Alma og Sam lyser fra ulike retninger mot samme spørsmål.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#081f2d"/><stop offset=".55" stop-color="#102f3c"/><stop offset="1" stop-color="#123f34"/></linearGradient>
+    <radialGradient id="glow"><stop offset="0" stop-color="#fff7ba" stop-opacity=".92"/><stop offset=".45" stop-color="#8fffc0" stop-opacity=".35"/><stop offset="1" stop-color="#8fffc0" stop-opacity="0"/></radialGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+    <style>.name{font:700 25px system-ui,-apple-system,Segoe UI,sans-serif;fill:#fff}.role{font:500 15px system-ui,-apple-system,Segoe UI,sans-serif;fill:#d6efe5}.beam{stroke:#a7ffd0;stroke-width:4;stroke-linecap:round;opacity:.35}.orb{stroke:#fff;stroke-opacity:.28;stroke-width:2}.small{font:600 14px system-ui,-apple-system,Segoe UI,sans-serif;fill:#b9d8d0}.center{font:800 48px system-ui,-apple-system,Segoe UI,sans-serif;fill:#fff}.center2{font:600 19px system-ui,-apple-system,Segoe UI,sans-serif;fill:#d7eee7}</style>
+  </defs>
+  <rect width="1200" height="760" rx="42" fill="url(#bg)"/><circle cx="600" cy="380" r="250" fill="url(#glow)" filter="url(#soft)"/>
+  <g class="beam"><path d="M600 380L180 155"/><path d="M600 380L420 115"/><path d="M600 380L780 115"/><path d="M600 380L1020 155"/><path d="M600 380L170 585"/><path d="M600 380L420 650"/><path d="M600 380L780 650"/><path d="M600 380L1030 585"/></g>
+  <circle cx="600" cy="380" r="150" fill="#0d2834" stroke="#a7ffd0" stroke-width="3"/><circle cx="600" cy="380" r="126" fill="none" stroke="#fff" stroke-opacity=".13" stroke-width="2"/>
+  <text x="600" y="355" text-anchor="middle" class="small">ETT SPØRSMÅL</text><text x="600" y="418" text-anchor="middle" class="center">?</text><text x="600" y="458" text-anchor="middle" class="center2">flere ærlige lys</text>
+  <g transform="translate(180 155)"><circle r="74" fill="#c78b42" class="orb"/><text y="-4" text-anchor="middle" class="name">Klara</text><text y="25" text-anchor="middle" class="role">lov · myndighet</text></g>
+  <g transform="translate(420 115)"><circle r="74" fill="#4b87b7" class="orb"/><text y="-4" text-anchor="middle" class="name">Sofia</text><text y="25" text-anchor="middle" class="role">forskning</text></g>
+  <g transform="translate(780 115)"><circle r="74" fill="#b05a54" class="orb"/><text y="-4" text-anchor="middle" class="name">Saga</text><text y="25" text-anchor="middle" class="role">historie · media</text></g>
+  <g transform="translate(1020 155)"><circle r="74" fill="#3d9b77" class="orb"/><text y="-4" text-anchor="middle" class="name">Mira</text><text y="25" text-anchor="middle" class="role">berørte</text></g>
+  <g transform="translate(170 585)"><circle r="74" fill="#d08b32" class="orb"/><text y="-4" text-anchor="middle" class="name">Liv</text><text y="25" text-anchor="middle" class="role">erfaring</text></g>
+  <g transform="translate(420 650)"><circle r="74" fill="#6256a6" class="orb"/><text y="-4" text-anchor="middle" class="name">Sindre</text><text y="25" text-anchor="middle" class="role">kontradiksjon</text></g>
+  <g transform="translate(780 650)"><circle r="74" fill="#8a4f9e" class="orb"/><text y="-4" text-anchor="middle" class="name">Alma</text><text y="25" text-anchor="middle" class="role">spørsmål nedenfra</text></g>
+  <g transform="translate(1030 585)"><circle r="74" fill="#397c9b" class="orb"/><text y="-4" text-anchor="middle" class="name">Sam</text><text y="25" text-anchor="middle" class="role">syntese</text></g>
+  <text x="600" y="724" text-anchor="middle" class="center2">Ingen av dem trenger å være hele lyset. Først når lysene møtes, begynner vi å se rommet.</text>
+</svg>
