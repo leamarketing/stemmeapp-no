@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-10T08:39:57.897Z",
+  "generatedAt": "2026-10-10T14:47:15.160Z",
   "issues": [
     {
       "slug": "tannhelse-nat-2026-0018",
@@ -10,7 +10,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 0,
+      "participationCount": 1,
       "interestTags": [
         "helse-omsorg"
       ],
