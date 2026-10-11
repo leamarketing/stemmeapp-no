@@ -360,3 +360,5 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+// Manual sync trigger 2026-10-11: regenerate public pages from the canonical VoteApp public feed.
