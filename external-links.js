@@ -104,7 +104,8 @@
     const issues = Array.isArray(data?.issues) ? data.issues : [];
     if (!issues.length) return;
 
-    const recent = issues.slice(-6).reverse();
+    // Public feed is newest-first (active deadline descending). Preserve that order.
+    const recent = issues.slice(0, 6);
     ensureRecentCasesStyles();
 
     const details = document.createElement('details');
