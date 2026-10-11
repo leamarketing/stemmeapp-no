@@ -1,6 +1,44 @@
 {
-  "generatedAt": "2026-10-11T14:15:57.524Z",
+  "generatedAt": "2026-10-11T18:43:34.979Z",
   "issues": [
+    {
+      "slug": "unodvendige-skatter-nat-2026-0019",
+      "title": "Unødvendige skatter",
+      "question": "Skal formueskatt og arbeidsgiveravgift avsluttes og forbys ?",
+      "status": "open",
+      "deadline": "2027-01-09T17:53:22.735+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "naring-arbeid"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/unodvendige-skatter-nat-2026-0019/hero-73cde14a45b2f456.webp",
+      "heroAlt": "Unødvendige skatter",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/unodvendige-skatter-nat-2026-0019/",
+      "voteUrl": "https://voteapp.eu/saker/unodvendige-skatter-nat-2026-0019"
+    },
+    {
+      "slug": "brannfly-nat-2026-0022",
+      "title": "Brannfly",
+      "question": "Skal norge investere i to store brannslokkingsfly ?",
+      "status": "open",
+      "deadline": "2027-01-09T15:34:24.594+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "beredskap"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/brannfly-nat-2026-0022/hero-8ebe8b832b942624.webp",
+      "heroAlt": "Brannfly",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/brannfly-nat-2026-0022/",
+      "voteUrl": "https://voteapp.eu/saker/brannfly-nat-2026-0022"
+    },
     {
       "slug": "tannhelse-nat-2026-0018",
       "title": "Tannhelse",
