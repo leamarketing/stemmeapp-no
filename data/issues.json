@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-10-12T09:25:30.491Z",
+  "generatedAt": "2026-10-12T19:15:50.782Z",
   "issues": [
+    {
+      "slug": "redningsvestpabud-nat-2026-0023",
+      "title": "Redningsvestpåbud ?",
+      "question": "Skal påbudet om å ha på vest i båter under 8 m erstattes av et påbud om å ha redningsvest lett tigjengelig i alle båter ?",
+      "status": "open",
+      "deadline": "2027-01-10T16:29:57.136+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "helse-omsorg"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/redningsvestpabud-nat-2026-0023/hero-2f92f912078c1ee6.webp",
+      "heroAlt": "Redningsvestpåbud ?",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/redningsvestpabud-nat-2026-0023/",
+      "voteUrl": "https://voteapp.eu/saker/redningsvestpabud-nat-2026-0023"
+    },
     {
       "slug": "unodvendige-skatter-nat-2026-0019",
       "title": "Unødvendige skatter",
@@ -10,7 +29,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 0,
+      "participationCount": 1,
       "interestTags": [
         "naring-arbeid"
       ],
@@ -29,7 +48,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 0,
+      "participationCount": 1,
       "interestTags": [
         "beredskap"
       ],
@@ -105,7 +124,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 0,
+      "participationCount": 1,
       "interestTags": [
         "samferdsel"
       ],
