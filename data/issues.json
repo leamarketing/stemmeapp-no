@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T01:27:39.931Z",
+  "generatedAt": "2026-10-13T08:21:28.260Z",
   "issues": [
     {
       "slug": "redningsvestpabud-nat-2026-0023",
@@ -10,7 +10,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 0,
+      "participationCount": 1,
       "interestTags": [
         "helse-omsorg"
       ],
