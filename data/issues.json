@@ -1,6 +1,86 @@
 {
-  "generatedAt": "2026-10-14T22:39:57.080Z",
+  "generatedAt": "2026-10-15T00:59:33.832Z",
   "issues": [
+    {
+      "slug": "batvrakpant-nat-2026-0038",
+      "title": "Båtvrakpant",
+      "question": "Skal båtvrakpanten økes betydelig og beregnes etter båtlengde ?",
+      "status": "open",
+      "deadline": "2027-01-13T00:15:27.939+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "kultur",
+        "naring-arbeid",
+        "samferdsel"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/batvrakpant-nat-2026-0038/hero-2f47a81208af160a.webp",
+      "heroAlt": "Båtvrakpant",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/batvrakpant-nat-2026-0038/",
+      "voteUrl": "https://voteapp.eu/saker/batvrakpant-nat-2026-0038"
+    },
+    {
+      "slug": "samfunnskontrakt-nor-2026-0027",
+      "title": "Samfunnskontrakt",
+      "question": "Skal alle off personer med samfunnsmakt pålegges en samfunnskontrakt for lojalitet til folk , lov og land ?",
+      "status": "open",
+      "deadline": "2027-01-12T23:22:43.401+00:00",
+      "geoLevel": "municipality",
+      "municipalityName": "Nordreisa - Ráisa - Raisi",
+      "countyName": "Troms - Romsa - Tromssa",
+      "participationCount": 0,
+      "interestTags": [
+        "beredskap"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/samfunnskontrakt-nor-2026-0027/hero-fb473c3498c34e3c.webp",
+      "heroAlt": "Samfunnskontrakt",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/samfunnskontrakt-nor-2026-0027/",
+      "voteUrl": "https://voteapp.eu/saker/samfunnskontrakt-nor-2026-0027"
+    },
+    {
+      "slug": "narkohunder-nat-2026-0028",
+      "title": "Narkohunder",
+      "question": "Skal norge satse massivt på bruk av narkohunder for å begrense narkomisbruket sterkt ?",
+      "status": "open",
+      "deadline": "2027-01-12T23:21:44.187+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "helse-omsorg",
+        "skole-oppvekst"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/narkohunder-nat-2026-0028/hero-cbfc0aabf781c432.webp",
+      "heroAlt": "Narkohunder",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/narkohunder-nat-2026-0028/",
+      "voteUrl": "https://voteapp.eu/saker/narkohunder-nat-2026-0028"
+    },
+    {
+      "slug": "sjolforsyningsgrad-nat-2026-0024",
+      "title": "Sjølforsyningsgrad",
+      "question": "Skal vi vedta og jobbe aktivt for en nasjonal målsetting for minst 2/3 matsjølforsyning ?",
+      "status": "open",
+      "deadline": "2027-01-12T23:20:11.229+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "naring-arbeid",
+        "beredskap"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/sjolforsyningsgrad-nat-2026-0024/hero-369102f6c9e34227.webp",
+      "heroAlt": "Sjølforsyningsgrad",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/sjolforsyningsgrad-nat-2026-0024/",
+      "voteUrl": "https://voteapp.eu/saker/sjolforsyningsgrad-nat-2026-0024"
+    },
     {
       "slug": "redningsvestpabud-nat-2026-0023",
       "title": "Redningsvestpåbud ?",
