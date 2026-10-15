@@ -1,6 +1,25 @@
 {
-  "generatedAt": "2026-10-15T05:47:10.061Z",
+  "generatedAt": "2026-10-15T10:23:28.653Z",
   "issues": [
+    {
+      "slug": "ukesmilliarden-nat-2026-0020",
+      "title": "Ukesmilliarden",
+      "question": "Skal programmet som investerer en milliard i uka i eiendom ute i verden avsluttes så vi istedet kan bruke pengene innenlands ?",
+      "status": "open",
+      "deadline": "2027-01-13T06:29:33.484+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "naring-arbeid"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/ukesmilliarden-nat-2026-0020/hero-a86b5eb76e4257db.webp",
+      "heroAlt": "Ukesmilliarden",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/ukesmilliarden-nat-2026-0020/",
+      "voteUrl": "https://voteapp.eu/saker/ukesmilliarden-nat-2026-0020"
+    },
     {
       "slug": "batvrakpant-nat-2026-0038",
       "title": "Båtvrakpant",
