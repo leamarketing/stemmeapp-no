@@ -1,6 +1,7 @@
 (() => {
   const API = 'https://voteapp.eu/api/public/forum';
-  const state = { issues: [], slug: '', posts: [], replyTo: null };
+  const state = { issues: [], slug: '', posts: [], replyTo: null, query: '', page: 1 };
+  let readController = null;
   const labels = {
     experience: 'Erfaring', source: 'Kilde', question: 'Spørsmål',
     for: 'Argument for', against: 'Argument mot', idea: 'Idé / forslag'
@@ -44,19 +45,117 @@
   }
 
   async function loadPosts() {
+    readController?.abort();
+    const controller = new AbortController();
+    readController = controller;
     const wrap = $('#threads');
     wrap.innerHTML = '<p class="muted">Laster diskusjonen …</p>';
     if (!state.slug) return;
-    const res = await fetch(`${API}?slug=${encodeURIComponent(state.slug)}`, { cache: 'no-store' });
-    const data = await res.json();
-    if (!res.ok) {
+    wrap.setAttribute('aria-busy', 'true');
+    try {
+      const res = await fetch(`${API}?slug=${encodeURIComponent(state.slug)}`, { cache: 'no-store', signal: controller.signal });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Kunne ikke hente diskusjonen.');
+      if (controller.signal.aborted) return;
+      state.posts = data.posts || [];
+      $('#forum-question').textContent = data.issue?.question || '';
+      renderPosts();
+      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (target && wrap.contains(target)) target.focus();
+    } catch (error) {
+      if (controller.signal.aborted) return;
       wrap.innerHTML = '';
-      wrap.appendChild(el('p', 'notice', data.error || 'Kunne ikke hente diskusjonen.'));
-      return;
+      wrap.appendChild(el('p', 'notice', error.message || 'Forumet kunne ikke lastes akkurat nå.'));
+    } finally {
+      if (readController === controller) wrap.removeAttribute('aria-busy');
     }
-    state.posts = data.posts || [];
-    $('#forum-question').textContent = data.issue?.question || '';
-    renderPosts();
+  }
+
+  function updateSearchMode() {
+    const searching = Boolean(state.query);
+    $('#forum-shell').classList.toggle('searching', searching);
+    $('#case-panel').hidden = searching;
+    $('#post-panel').hidden = searching;
+    $('#clear-search').hidden = !searching;
+  }
+
+  function updateSearchUrl() {
+    const params = new URLSearchParams();
+    if (state.slug) params.set('sak', state.slug);
+    if (state.query) {
+      params.set('q', state.query);
+      if (state.page > 1) params.set('side', String(state.page));
+    }
+    history.replaceState(null, '', `/forum/?${params.toString()}`);
+  }
+
+  async function searchPosts(page = 1) {
+    readController?.abort();
+    const controller = new AbortController();
+    readController = controller;
+    state.page = page;
+    updateSearchMode();
+    updateSearchUrl();
+    const wrap = $('#threads');
+    wrap.innerHTML = '';
+    wrap.setAttribute('aria-busy', 'true');
+    $('#search-status').textContent = `Søker etter «${state.query}» …`;
+    const params = new URLSearchParams({ q: state.query, page: String(page) });
+    try {
+      const res = await fetch(`${API}?${params.toString()}`, { cache: 'no-store', signal: controller.signal });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Kunne ikke søke i forumet.');
+      if (controller.signal.aborted) return;
+      // A stale API must never silently display the unfiltered recent-post feed.
+      if (data.query !== state.query || !Array.isArray(data.posts)) throw new Error('Søket er ikke tilgjengelig akkurat nå. Prøv igjen om litt.');
+      const count = data.posts.length;
+      const summary = !count ? `Ingen treff på «${state.query}». Prøv et annet ord eller en kortere frase.`
+        : page === 1 && !data.hasMore ? `${count} treff på «${state.query}».`
+        : `Treff ${(page - 1) * 20 + 1}–${(page - 1) * 20 + count} på «${state.query}».`;
+      $('#search-status').textContent = summary;
+      if (!count) wrap.appendChild(el('p', 'empty', summary));
+      data.posts.forEach(post => {
+        const issue = Array.isArray(post.issues) ? post.issues[0] : post.issues;
+        if (!issue?.slug) return;
+        const card = el('article', 'post search-result');
+        const heading = el('h2', 'search-case', issue.question);
+        card.appendChild(heading);
+        card.appendChild(el('p', 'post-meta', `${labels[post.kind] || post.kind}${post.parent_id ? ' · Svarinnlegg' : ''} · ${post.author_name} · ${fmtDate(post.created_at)}`));
+        card.appendChild(el('p', 'post-body', post.body));
+        const link = el('a', 'btn', 'Åpne samtalen');
+        link.href = `/forum/?sak=${encodeURIComponent(issue.slug)}#innlegg-${encodeURIComponent(post.id)}`;
+        card.appendChild(link);
+        wrap.appendChild(card);
+      });
+      if (page > 1 || data.hasMore) {
+        const pagination = el('nav', 'search-pagination');
+        pagination.setAttribute('aria-label', 'Sider med søketreff');
+        for (const [label, target, enabled] of [['Forrige treff', page - 1, page > 1], ['Neste treff', page + 1, data.hasMore]]) {
+          if (!enabled) continue;
+          const button = el('button', 'btn', label);
+          button.type = 'button';
+          button.addEventListener('click', () => searchPosts(target));
+          pagination.appendChild(button);
+        }
+        wrap.appendChild(pagination);
+      }
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      $('#search-status').textContent = error.message || 'Kunne ikke søke i forumet. Prøv igjen.';
+      wrap.appendChild(el('p', 'notice', 'Søket kunne ikke fullføres. Prøv på nytt, eller gå tilbake til valgt sak.'));
+    } finally {
+      if (readController === controller) wrap.removeAttribute('aria-busy');
+    }
+  }
+
+  function clearSearch() {
+    state.query = '';
+    state.page = 1;
+    $('#forum-search').value = '';
+    $('#search-status').textContent = '';
+    updateSearchMode();
+    updateSearchUrl();
+    loadPosts();
   }
 
   function renderPosts() {
@@ -74,6 +173,8 @@
 
   function renderPost(post, isReply) {
     const card = el('article', isReply ? 'post reply' : 'post');
+    card.id = `innlegg-${post.id}`;
+    card.tabIndex = -1;
     const top = el('div', 'post-top');
     const badge = el('span', `kind kind-${post.kind}`, labels[post.kind] || post.kind);
     const meta = el('span', 'post-meta', `${post.author_name} · ${fmtDate(post.created_at)}`);
@@ -167,9 +268,24 @@
   }
 
   async function init() {
+    $('#forum-search-form').addEventListener('submit', event => {
+      event.preventDefault();
+      state.query = $('#forum-search').value.trim();
+      if (!state.query) { clearSearch(); return; }
+      state.replyTo = null;
+      updateReplyBanner();
+      searchPosts();
+    });
+    $('#clear-search').addEventListener('click', clearSearch);
     try {
       await loadIssues();
-      await loadPosts();
+      const params = new URLSearchParams(location.search);
+      state.query = (params.get('q') || '').trim().slice(0, 120);
+      $('#forum-search').value = state.query;
+      if (state.query) {
+        const page = /^[1-9]\d{0,3}$/.test(params.get('side') || '') ? Number(params.get('side')) : 1;
+        await searchPosts(page);
+      } else await loadPosts();
     } catch {
       $('#threads').innerHTML = '<p class="notice">Forumet kunne ikke lastes akkurat nå.</p>';
     }
@@ -179,3 +295,4 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
