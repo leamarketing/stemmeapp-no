@@ -1,6 +1,109 @@
 {
-  "generatedAt": "2026-10-16T14:44:30.750Z",
+  "generatedAt": "2026-10-16T18:27:34.782Z",
   "issues": [
+    {
+      "slug": "bompenger-nor-2026-0031",
+      "title": "Bompenger",
+      "question": "Hvor mye penger kommer inn via bompenger i Agder og de forskjellige fylkene i Norge og hvor mye går til veier av de pengene",
+      "status": "closed",
+      "deadline": null,
+      "geoLevel": "county",
+      "municipalityName": "Agder",
+      "countyName": "Agder",
+      "participationCount": 0,
+      "interestTags": [
+        "naring-arbeid",
+        "samferdsel",
+        "beredskap"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/bompenger-nor-2026-0031/hero-d3fb54c98e27a57b.webp",
+      "heroAlt": "Bompenger",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/bompenger-nor-2026-0031/",
+      "voteUrl": "https://voteapp.eu/saker/bompenger-nor-2026-0031"
+    },
+    {
+      "slug": "bunnduk-i-fiskeanlegg-nat-2026-0043",
+      "title": "Bunnduk i fiskeanlegg",
+      "question": "Skal fiskeoppdrettsanlegg i sjø pålegges montering av bunnduk i anlegga for å samle opp møkk og forrester så avfallet kan utnyttes til fks biogass eller insektproduksjon istedet for å forurense fjordene ?",
+      "status": "open",
+      "deadline": "2027-01-14T17:06:18.515+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "naring-arbeid",
+        "natur-areal"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/bunnduk-i-fiskeanlegg-nat-2026-0043/hero-a892303d7fe412af.webp",
+      "heroAlt": "Bunnduk i fiskeanlegg",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/bunnduk-i-fiskeanlegg-nat-2026-0043/",
+      "voteUrl": "https://voteapp.eu/saker/bunnduk-i-fiskeanlegg-nat-2026-0043"
+    },
+    {
+      "slug": "verdenstur-for-vernepliktige-nat-2026-0041",
+      "title": "Verdenstur for vernepliktige",
+      "question": "Skal vernepliktige sendes på skoleringstur verden rundt for å oppleve andre samfunn og erfare fks resultata av krig , nød , fattigdom osv ?",
+      "status": "open",
+      "deadline": "2027-01-14T17:05:12.785+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "ungdom",
+        "beredskap"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/verdenstur-for-vernepliktige-nat-2026-0041/hero-eefd093de77bd18b.webp",
+      "heroAlt": "Verdenstur for vernepliktige",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/verdenstur-for-vernepliktige-nat-2026-0041/",
+      "voteUrl": "https://voteapp.eu/saker/verdenstur-for-vernepliktige-nat-2026-0041"
+    },
+    {
+      "slug": "farledutbedring-nat-2026-0040",
+      "title": "Farledutbedring",
+      "question": "Skal norge bruke mye mer penger på farledutbering ?",
+      "status": "open",
+      "deadline": "2027-01-14T17:03:57.307+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "samferdsel",
+        "beredskap",
+        "naring-arbeid",
+        "natur-areal",
+        "helse-omsorg"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/farledutbedring-nat-2026-0040/hero-a73274b208678f58.webp",
+      "heroAlt": "Farledutbedring",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/farledutbedring-nat-2026-0040/",
+      "voteUrl": "https://voteapp.eu/saker/farledutbedring-nat-2026-0040"
+    },
+    {
+      "slug": "folkets-familievern-nat-2026-0037",
+      "title": "Folkets familievern ?",
+      "question": "Skal dagens barnevern erstattes med organisasjonen Folkets familievern ?",
+      "status": "open",
+      "deadline": "2027-01-14T17:02:47.641+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "helse-omsorg"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/folkets-familievern-nat-2026-0037/hero-0b6f58504eab6455.webp",
+      "heroAlt": "Folkets familievern ?",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/folkets-familievern-nat-2026-0037/",
+      "voteUrl": "https://voteapp.eu/saker/folkets-familievern-nat-2026-0037"
+    },
     {
       "slug": "skattefradrag-for-foreldre-nat-2026-0036",
       "title": "Skattefradrag for foreldre",
