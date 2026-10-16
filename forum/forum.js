@@ -60,7 +60,7 @@
       state.posts = data.posts || [];
       $('#forum-question').textContent = data.issue?.question || '';
       renderPosts();
-      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      const target = document.getElementById(location.hash.slice(1));
       if (target && wrap.contains(target)) target.focus();
     } catch (error) {
       if (controller.signal.aborted) return;
