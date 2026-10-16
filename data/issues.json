@@ -1,6 +1,64 @@
 {
-  "generatedAt": "2026-10-16T18:27:34.782Z",
+  "generatedAt": "2026-10-16T21:37:55.201Z",
   "issues": [
+    {
+      "slug": "bilavgifter-nat-2026-0042",
+      "title": "Bilavgifter",
+      "question": "Skal fks biler ha samme skatt og  avgiftssystem som andre produkter og skal produktavgifter dekke kun faktiske saksrelaterte kostnader ?",
+      "status": "open",
+      "deadline": "2027-01-14T18:40:35.336+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "samferdsel",
+        "naring-arbeid"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/bilavgifter-nat-2026-0042/hero-34cda76a512c1e88.webp",
+      "heroAlt": "Bilavgifter",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/bilavgifter-nat-2026-0042/",
+      "voteUrl": "https://voteapp.eu/saker/bilavgifter-nat-2026-0042"
+    },
+    {
+      "slug": "fosenvindkraft-nat-2026-0039",
+      "title": "Fosenvindkraft",
+      "question": "Skal vindkraftanlegget på Fosen fjernes ?",
+      "status": "open",
+      "deadline": "2027-01-14T18:39:26.038+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "natur-areal"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/fosenvindkraft-nat-2026-0039/hero-43900729e8615771.webp",
+      "heroAlt": "Fosenvindkraft",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/fosenvindkraft-nat-2026-0039/",
+      "voteUrl": "https://voteapp.eu/saker/fosenvindkraft-nat-2026-0039"
+    },
+    {
+      "slug": "skatt-og-avgift-nat-2026-0021",
+      "title": "Skatt og avgift",
+      "question": "Skal flest mulig skatter og avgifter lovpålegges og knyttes direkte til å dekke kun saksrelaterte kostnader ?",
+      "status": "open",
+      "deadline": "2027-01-14T18:35:43.485+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [
+        "naring-arbeid"
+      ],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/skatt-og-avgift-nat-2026-0021/hero-e37cb087639fd357.webp",
+      "heroAlt": "Skatt og avgift",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/skatt-og-avgift-nat-2026-0021/",
+      "voteUrl": "https://voteapp.eu/saker/skatt-og-avgift-nat-2026-0021"
+    },
     {
       "slug": "bompenger-nor-2026-0031",
       "title": "Bompenger",
