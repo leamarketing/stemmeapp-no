@@ -1,6 +1,23 @@
 {
-  "generatedAt": "2026-10-16T21:37:55.201Z",
+  "generatedAt": "2026-10-16T23:53:57.816Z",
   "issues": [
+    {
+      "slug": "frigjoring-og-folkestyre-nat-2026-0003",
+      "title": "Frigjøring og folkestyre",
+      "question": "Skal Norge bli og være en på alle måter fri , suveren og folkestyrt nasjon ?",
+      "status": "open",
+      "deadline": "2027-01-14T22:09:27.927+00:00",
+      "geoLevel": "nation",
+      "municipalityName": "Hele Norge",
+      "countyName": "",
+      "participationCount": 0,
+      "interestTags": [],
+      "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/frigjoring-og-folkestyre-nat-2026-0003/hero-550bd53c9c1fa169.webp",
+      "heroAlt": "Frigjøring og folkestyre",
+      "formalParticipationCount": 0,
+      "pageUrl": "https://stemmeapp.no/saker/frigjoring-og-folkestyre-nat-2026-0003/",
+      "voteUrl": "https://voteapp.eu/saker/frigjoring-og-folkestyre-nat-2026-0003"
+    },
     {
       "slug": "bilavgifter-nat-2026-0042",
       "title": "Bilavgifter",
