@@ -121,7 +121,8 @@
 
     recent.forEach((issue) => {
       const a = document.createElement('a');
-      a.href = issue.pageUrl || `/saker/${encodeURIComponent(issue.slug)}/`;
+      // Build our own local URL; feed URLs must not become javascript: links.
+      a.href = `/saker/${encodeURIComponent(issue.slug)}/`;
       const strong = document.createElement('strong');
       strong.textContent = issue.title || issue.question || 'Ny sak';
       const small = document.createElement('small');

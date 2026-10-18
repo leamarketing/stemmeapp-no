@@ -5,16 +5,18 @@ on:
   schedule:
     - cron: "*/10 * * * *"
   push:
+    branches: [main]
     paths:
       - "scripts/sync-cases.mjs"
       - "scripts/sync-participation.mjs"
       - "scripts/apply-external-links.mjs"
+      - "scripts/public-content.mjs"
       - "data/participation-opportunities.json"
       - "external-links.js"
       - ".github/workflows/sync-voteapp-cases.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: sync-voteapp-cases
@@ -23,14 +25,20 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
     steps:
       - name: Check out site
-        uses: actions/checkout@v4
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
-          node-version: "20"
+          node-version: "24"
+
+      - name: Verify public-content boundaries
+        run: node --test tests/security.test.mjs
 
       - name: Generate case pages
         run: node scripts/sync-cases.mjs
