@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
+import { assertCaseSlug } from "./public-content.mjs";
 
 const API_BASE = process.env.VOTEAPP_PUBLIC_API || "https://voteapp.eu/api/public/issues";
 const ROOT = process.cwd();
@@ -147,7 +149,8 @@ function renderSources(card) {
   }).join("")}</div>`;
 }
 
-function pageHtml(issue, participationEntry, participationCheckedAt) {
+export function pageHtml(issue, participationEntry, participationCheckedAt) {
+  assertCaseSlug(issue.slug);
   const card = issue.deepDive?.knowledgeCard || {};
   const sources = collectSources(card);
   const sourceCount = sources.length || card.sourceCount || card.source_count || 0;
@@ -294,15 +297,21 @@ async function loadParticipationConfig() {
   }
 }
 
-async function main() {
+export async function main() {
   const feed = await fetchJson(API_BASE);
   const summaries = Array.isArray(feed.issues) ? feed.issues : [];
   if (!summaries.length) throw new Error("Offentlig saksfeed returnerte ingen saker; avbryter uten å slette eksisterende sider.");
 
   const details = [];
+  const slugs = new Set();
   for (const summary of summaries) {
+    assertCaseSlug(summary.slug);
+    if (slugs.has(summary.slug)) throw new Error("Duplikat i saksfeed; ingen filer er endret.");
+    slugs.add(summary.slug);
     const detail = await fetchJson(`${API_BASE}/${encodeURIComponent(summary.slug)}`);
     if (!detail.issue) throw new Error(`Mangler detaljdata for ${summary.slug}`);
+    assertCaseSlug(detail.issue.slug);
+    if (detail.issue.slug !== summary.slug) throw new Error("Saksdetaljer samsvarer ikke med oversikten.");
     details.push(detail.issue);
   }
 
@@ -356,7 +365,7 @@ async function main() {
   console.log(`Synkroniserte ${details.length} publiserte saker til stemmeapp.no.`);
 }
 
-main().catch((error) => {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });

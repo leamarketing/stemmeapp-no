@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { safePublicUrl } from './public-content.mjs';
 
 const ROOT = process.cwd();
 const DATA = path.join(ROOT, 'data', 'participation-opportunities.json');
@@ -34,7 +35,7 @@ const issueEntries = Object.entries(raw.issues || {});
 const opportunities = [];
 for (const [issueSlug, issueData] of issueEntries) {
   for (const op of issueData.opportunities || []) {
-    if (!active(op)) continue;
+    if (!active(op) || !safePublicUrl(op.url)) continue;
     opportunities.push({ issueSlug, issueIntro: issueData.intro || '', ...op });
   }
 }
@@ -56,7 +57,7 @@ const cards = opportunities.map((op) => `
   </div>
   ${op.relevance ? `<p>${esc(op.relevance)}</p>` : ''}
   <div class="actions">
-    <a class="btn primary" href="${esc(op.url)}">${esc(op.actionLabel || 'Åpne offisiell side')} ↗</a>
+    <a class="btn primary" href="${esc(safePublicUrl(op.url))}">${esc(op.actionLabel || 'Åpne offisiell side')} ↗</a>
     <a class="btn" href="/saker/${encodeURIComponent(op.issueSlug)}/">Se StemmeApp-saken</a>
   </div>
 </article>`).join('\n');
