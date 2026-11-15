@@ -245,7 +245,7 @@
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
-    /* "Test meg": liten QR-knapp nede til hoyre som apner en stor QR til test.voteapp.eu */
+    /* "Prov Min dag": liten QR-knapp nede til hoyre som apner en stor QR til medlemsportalen (test.voteapp.eu/portal/) */
     .testmeg-btn {
       position: fixed; right: 1rem; bottom: 1rem; z-index: 30;
       display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
@@ -637,14 +637,14 @@
   </main>
 
   <button type="button" class="testmeg-btn" id="testmeg-open" aria-haspopup="dialog" aria-controls="testmeg-dialog">
-    <img src="images/qr-test-meg.svg" alt="" width="56" height="56">
-    Test MEG
+    <img src="images/qr-min-dag-portal.svg" alt="" width="56" height="56">
+    Prøv Min dag
   </button>
   <dialog class="testmeg-dialog" id="testmeg-dialog" aria-labelledby="testmeg-title">
-    <h2 id="testmeg-title">Test MEG</h2>
-    <p>Prøv MEG, den nye dagsiden i VoteApp: motivasjon, plan, mat og balanse. Prototypen bruker bare eksempeldata.</p>
-    <img src="images/qr-test-meg.svg" alt="QR-kode som åpner test.voteapp.eu" width="300" height="300">
-    <a class="btn btn-primary" href="https://test.voteapp.eu">Åpne test.voteapp.eu</a><br>
+    <h2 id="testmeg-title">Prøv Min dag i en uke</h2>
+    <p>Min dag er den personlige dagsiden i VoteApp. Logg inn med e-posten din, så får du 7 dager gratis. Du trenger verken passord eller kort. Dette er en testversjon.</p>
+    <img src="images/qr-min-dag-portal.svg" alt="QR-kode som åpner medlemsportalen på test.voteapp.eu" width="300" height="300">
+    <a class="btn btn-primary" href="https://test.voteapp.eu/portal/">Åpne medlemsportalen</a><br>
     <button type="button" class="testmeg-close" id="testmeg-close">Lukk</button>
   </dialog>
   <script>
