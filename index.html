@@ -268,6 +268,14 @@
     .testmeg-dialog p { margin: 0 0 0.9rem; color: var(--muted); }
     .testmeg-dialog img { width: 100%; max-width: 300px; height: auto; border-radius: 10px; display: block; margin: 0 auto 0.9rem; }
     .testmeg-dialog .btn { display: inline-block; }
+    .testmeg-dialog { max-height: 92vh; overflow: auto; }
+    .testmeg-dialog .testmeg-eyebrow { margin: 0 0 0.3rem; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    .testmeg-dialog .testmeg-lead { color: var(--text); font-size: 1.02rem; }
+    .testmeg-liste { list-style: none; margin: 0 0 1rem; padding: 0; text-align: left; display: grid; gap: 0.45rem; }
+    .testmeg-liste li { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.55rem 0.7rem; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.03); line-height: 1.35; }
+    .testmeg-liste li span { font-size: 1.15rem; line-height: 1.2; }
+    .testmeg-dialog .testmeg-liten { font-size: 0.85rem; margin: 0.7rem 0 0.8rem; }
+    .testmeg-dialog img { max-width: 220px; }
     .testmeg-close {
       margin-top: 0.75rem; background: none; border: 1px solid var(--line); color: var(--text);
       border-radius: 999px; padding: 0.45rem 1.1rem; font: inherit; cursor: pointer;
@@ -637,14 +645,24 @@
   </main>
 
   <button type="button" class="testmeg-btn" id="testmeg-open" aria-haspopup="dialog" aria-controls="testmeg-dialog">
-    <img src="images/qr-min-dag-portal.svg" alt="" width="56" height="56">
+    <img src="images/qr-min-dag.svg" alt="" width="56" height="56">
     Prøv Min dag
   </button>
   <dialog class="testmeg-dialog" id="testmeg-dialog" aria-labelledby="testmeg-title">
-    <h2 id="testmeg-title">Prøv Min dag i en uke</h2>
-    <p>Min dag er den personlige dagsiden i VoteApp. Logg inn med e-posten din, så får du 7 dager gratis. Du trenger verken passord eller kort. Dette er en testversjon.</p>
-    <img src="images/qr-min-dag-portal.svg" alt="QR-kode som åpner medlemsportalen på test.voteapp.eu" width="300" height="300">
-    <a class="btn btn-primary" href="https://test.voteapp.eu/">Se hva Min dag har for deg i dag</a><br>
+    <p class="testmeg-eyebrow">Min dag · testversjon</p>
+    <h2 id="testmeg-title">Hvordan ser dagen din ut i dag?</h2>
+    <p class="testmeg-lead">Min dag samler det som betyr noe for deg på ett sted. Skriv fornavnet og fødselsdatoen din, så er dagen din klar med en gang. Du trenger ikke konto for å se.</p>
+    <ul class="testmeg-liste">
+      <li><span aria-hidden="true">🌅</span> Sola og månen der du bor, og når det er lyst ute</li>
+      <li><span aria-hidden="true">✨</span> Dagens tall og horoskopet ditt, som tradisjon og inspirasjon</li>
+      <li><span aria-hidden="true">🍲</span> Middagsforslag og handleliste som henger sammen</li>
+      <li><span aria-hidden="true">🎵</span> Morgensang og natta-sang fra Lyse</li>
+      <li><span aria-hidden="true">🗳️</span> Saker i VoteApp om det du bryr deg om</li>
+    </ul>
+    <a class="btn btn-primary" href="https://test.voteapp.eu/">Se hva Min dag har for deg i dag</a>
+    <p class="testmeg-liten">Vil du ta det med deg til alle enhetene dine, blir du medlem. De første 7 dagene er gratis, og du kan slutte når du vil.</p>
+    <img src="images/qr-min-dag.svg" alt="QR-kode som åpner Min dag på test.voteapp.eu" width="220" height="220">
+    <p class="testmeg-liten">Eller skann koden med mobilen.</p>
     <button type="button" class="testmeg-close" id="testmeg-close">Lukk</button>
   </dialog>
   <script>
