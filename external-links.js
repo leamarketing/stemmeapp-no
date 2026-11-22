@@ -123,12 +123,22 @@
       const a = document.createElement('a');
       a.href = issue.pageUrl || `/saker/${encodeURIComponent(issue.slug)}/`;
       const strong = document.createElement('strong');
+      // Saksnavnet er saksinnhold: det står alltid på norsk, slik det ble publisert (se SPRAK-PLAN.md).
+      strong.className = 'sakstekst';
+      strong.lang = 'nb';
       strong.textContent = issue.title || issue.question || 'Ny sak';
       const small = document.createElement('small');
       small.textContent = shortGeo(issue);
       a.append(strong, small);
       panel.appendChild(a);
     });
+
+    if (window.StemmeSprak && window.StemmeSprak.lang !== 'nb') {
+      const note = document.createElement('small');
+      note.style.padding = '.45rem .8rem 0';
+      note.textContent = 'Saksnavnene står på norsk, slik de ble publisert.';
+      panel.appendChild(note);
+    }
 
     const all = document.createElement('a');
     all.href = '/saker/';
