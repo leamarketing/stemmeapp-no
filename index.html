@@ -276,6 +276,17 @@
     .testmeg-liste li span { font-size: 1.15rem; line-height: 1.2; }
     .testmeg-dialog .testmeg-liten { font-size: 0.85rem; margin: 0.7rem 0 0.8rem; }
     .testmeg-dialog img { max-width: 220px; }
+    /* «Klikk her» danser litt: en liten hopp-og-vrikk hvert tredje sekund, bare mens vinduet er åpent. Står stille for dem som har slått av bevegelse. */
+    .testmeg-dans { font-size: 1.15rem; padding-left: 2rem; padding-right: 2rem; animation: testmeg-dans 3s ease-in-out infinite; transform-origin: 50% 100%; }
+    .testmeg-dans:hover, .testmeg-dans:focus-visible { animation-play-state: paused; transform: scale(1.06); }
+    @keyframes testmeg-dans {
+      0%, 70%, 100% { transform: translateY(0) rotate(0); }
+      76% { transform: translateY(-6px) rotate(-3deg); }
+      82% { transform: translateY(0) rotate(3deg); }
+      88% { transform: translateY(-3px) rotate(-2deg); }
+      94% { transform: translateY(0) rotate(1deg); }
+    }
+    @media (prefers-reduced-motion: reduce) { .testmeg-dans { animation: none; } }
     .testmeg-close {
       margin-top: 0.75rem; background: none; border: 1px solid var(--line); color: var(--text);
       border-radius: 999px; padding: 0.45rem 1.1rem; font: inherit; cursor: pointer;
@@ -659,7 +670,7 @@
       <li><span aria-hidden="true">🎵</span> Morgensang og natta-sang fra Lyse</li>
       <li><span aria-hidden="true">🗳️</span> Saker i VoteApp om det du bryr deg om</li>
     </ul>
-    <a class="btn btn-primary" href="https://test.voteapp.eu/">Se hva Min dag har for deg i dag</a>
+    <a class="btn btn-primary testmeg-dans" href="https://test.voteapp.eu/" aria-label="Klikk her for å se hva Min dag har for deg i dag">Klikk her</a>
     <p class="testmeg-liten">Vil du ta det med deg til alle enhetene dine, blir du medlem. De første 7 dagene er gratis, og du kan slutte når du vil.</p>
     <img src="images/qr-min-dag.svg" alt="QR-kode som åpner Min dag på test.voteapp.eu" width="220" height="220">
     <p class="testmeg-liten">Eller skann koden med mobilen.</p>
