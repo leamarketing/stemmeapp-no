@@ -287,6 +287,12 @@
       94% { transform: translateY(0) rotate(1deg); }
     }
     @media (prefers-reduced-motion: reduce) { .testmeg-dans { animation: none; } }
+    .testmeg-dialog .testmeg-under { margin: 0.2rem 0 0.5rem; color: var(--text); font-weight: 700; text-align: left; }
+    .testmeg-moduler li { padding: 0; }
+    .testmeg-moduler a { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.55rem 0.7rem; color: inherit; text-decoration: none; border-radius: 12px; width: 100%; }
+    .testmeg-moduler a:hover, .testmeg-moduler a:focus-visible { background: rgba(255,255,255,0.06); outline: 2px solid var(--accent); outline-offset: -2px; }
+    .testmeg-moduler b { display: block; color: var(--text); }
+    .testmeg-moduler a span:last-child { color: var(--muted); }
     .testmeg-close {
       margin-top: 0.75rem; background: none; border: 1px solid var(--line); color: var(--text);
       border-radius: 999px; padding: 0.45rem 1.1rem; font: inherit; cursor: pointer;
@@ -669,6 +675,14 @@
       <li><span aria-hidden="true">🍲</span> Middagsforslag og handleliste som henger sammen</li>
       <li><span aria-hidden="true">🎵</span> Morgensang og natta-sang fra Lyse</li>
       <li><span aria-hidden="true">🗳️</span> Saker i VoteApp om det du bryr deg om</li>
+    </ul>
+    <p class="testmeg-under">Og flere moduler å prøve</p>
+    <ul class="testmeg-liste testmeg-moduler">
+      <li><a href="https://my.bizplanpilot.com"><span aria-hidden="true">💼</span><span><b>MinBiz</b> Fra idé til plan, med ett tydelig steg om gangen</span></a></li>
+      <li><a href="https://test.voteapp.eu/spill/#h-kveld"><span aria-hidden="true">🎲</span><span><b>Familiespill</b> Familiens spillkveld, for store og små sammen</span></a></li>
+      <li><a href="https://test.voteapp.eu/portal/#vaer"><span aria-hidden="true">🌦️</span><span><b>Været</b> Varsel og kart for der du bor</span></a></li>
+      <li><a href="https://test.voteapp.eu/portal/"><span aria-hidden="true">🔤</span><span><b>Navnet ditt</b> Hva det kommer av, og navnetallene dine</span></a></li>
+      <li><a href="https://test.voteapp.eu/#livet"><span aria-hidden="true">📅</span><span><b>Livet mitt</b> Dine store dager, og hvordan himmelen sto da</span></a></li>
     </ul>
     <a class="btn btn-primary testmeg-dans" href="https://test.voteapp.eu/" aria-label="Klikk her for å se hva Min dag har for deg i dag">Klikk her</a>
     <p class="testmeg-liten">Vil du ta det med deg til alle enhetene dine, blir du medlem. De første 7 dagene er gratis, og du kan slutte når du vil.</p>
