@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-23T09:53:16.458Z",
+  "generatedAt": "2026-11-23T21:58:24.304Z",
   "issues": [
     {
       "slug": "frigjoring-og-folkestyre-nat-2026-0003",
@@ -10,7 +10,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 0,
+      "participationCount": 1,
       "interestTags": [],
       "heroSrc": "https://jkwymvdczukhtxjjjjiz.supabase.co/storage/v1/object/public/issue-media/issues/frigjoring-og-folkestyre-nat-2026-0003/hero-550bd53c9c1fa169.webp",
       "heroAlt": "Frigjøring og folkestyre",
@@ -27,7 +27,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 0,
+      "participationCount": 1,
       "interestTags": [
         "samferdsel",
         "naring-arbeid"
@@ -47,7 +47,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 0,
+      "participationCount": 1,
       "interestTags": [
         "natur-areal"
       ],
@@ -309,7 +309,7 @@
       "geoLevel": "nation",
       "municipalityName": "Hele Norge",
       "countyName": "",
-      "participationCount": 1,
+      "participationCount": 2,
       "interestTags": [
         "skole-oppvekst",
         "helse-omsorg",
